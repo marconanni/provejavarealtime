@@ -1,0 +1,62 @@
+Prova 1:
+
+Creo un thread real time, gli faccio fare un'esecuzione di 1 secondo,
+poi lo faccio terminare.
+
+Prova 2:
+visto che la prova 1 non è andata tanto bene, provo a fare un po' di prove
+con i Relative e Absolute time:
+provo a costruire un relative time con 10000 ms ( 10 sec) e a stamparlo, per
+vedere cosa esce fuori
+
+provo a creare due Absolute Time, distanziati di 5 secondi l'uno dall'altro e
+a vedere cosa viene come differenza
+
+Stampo i valori numerici delle priorità dello scheduler, almeno mirendo conto
+dei numeri con cui lavora.
+
+Prova 3:
+
+Creo due trhread con lo stesso tempo di esecuzione e lo stesso istante di
+release, solo uno con priorità inferiore all'altro; faccio stamapre ad entrambi
+quando entrano in esecuzione e quendo la terminano.
+
+Prova 4:
+
+Creo un thread periodico, gli faccio fare 10 iterazioni e stampo i tempi di release
+e di termine dell'esecuzione.
+
+Prova 5:
+
+Simile alla prova quattro, ma il thread una volta ogni due sfora la deadline,
+cli associo un deadlineMissHandler che conta gli sforamenti di deadline e stampa
+tutto sulla memoria.
+
+NOTA: anche allungando molto il tempo di esecuzione il sistema esegue comunque
+tutti i job in ordine, anche a costo di schedulare un thread dopo l'istante di
+release del successivo: politica di base è quindi AsSoonAsPossible.
+
+NOTA2: se viene asociato un handler ad un thread realtime periodico,
+quando questo viola la deadline il thread viene deschedulato(!) e vine chiamato
+il metodo handleAsyncEvent dell'handler, se si vuole che il processo torni in eseceuzione
+l'andler dee chiamare a mano il metodo schedulePeriodic passando come parametro il thread
+da sorvegliare.
+
+Prova6:
+
+Altro esercizio sullo sforamento di deadline: qui ho un thread che , nonostante abbia
+un periodo di 1000, esegue per 2500. voglio vedere di quanti (e quali ) sforamenti
+di deadline il sistema mi da conto.
+
+Vengono sollevati due eventi di deadline miss: uno dopo 100 e uno dopo 2000.
+E' la cosa più corretta. Le esecuzioni vengono, al solito accodate.
+
+Prova 7:
+
+Proviamo il protocollo priority inheritance:faccio partire un thread a priorità inferiore,
+e gli faccio usare una risorsa ( modellata come esecuzione di un metoto sinchronize di una
+classe) per un certo tempo; mentre il processo a bassa priorità uas la risorsa ne lancio
+ uno a prioritàmaggiore che chiede anch'esso la risorsa: se adesso faccio stampare
+ la priorità corrente al processo a bassa priorità, questo dovrebbe aver ereditato
+la priorità dell'altro.
+

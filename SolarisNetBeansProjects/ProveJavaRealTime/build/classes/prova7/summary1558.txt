@@ -1,0 +1,106 @@
+First timestamp: 1197897387056 Last timestamp: 1202448608046
+Number of thread: 13
+
+Thread 1 : main
+	priority range: 0 - 129
+	CPU time: 1879337718 ns = 1sec 879ms 337us 718ns  ( 41 % )
+	Migrations count: 0 / Mean Migration Interval: 0
+	CPU utilization:
+		CPU 0 : 1879337718 ns = 1sec 879ms 337us 718ns  ( 100 % )
+	Locks contentions:
+
+Thread 2 : Gang worker#0 (RTGC Threads)
+	priority range: 29 - 59
+	CPU time: 2963979964 ns = 2sec 963ms 979us 964ns  ( 65 % )
+	Migrations count: 0 / Mean Migration Interval: 0
+	CPU utilization:
+		CPU 0 : 2963979964 ns = 2sec 963ms 979us 964ns  ( 100 % )
+	Locks contentions:
+
+Thread 3 : Gang worker#1 (RTGC Threads)
+	priority range: 40 - 55
+	CPU time: 1741288 ns = 1ms 741us 288ns  ( 0 % )
+	Migrations count: 0 / Mean Migration Interval: 0
+	CPU utilization:
+		CPU 0 : 1741288 ns = 1ms 741us 288ns  ( 100 % )
+	Locks contentions:
+
+Thread 4 : Gang worker#2 (RTGC Threads)
+	priority range: 40 - 55
+	CPU time: 2178355 ns = 2ms 178us 355ns  ( 0 % )
+	Migrations count: 0 / Mean Migration Interval: 0
+	CPU utilization:
+		CPU 0 : 2178355 ns = 2ms 178us 355ns  ( 100 % )
+	Locks contentions:
+
+Thread 5 : RTGC Thread#0
+	priority range: 129 - 129
+	CPU time: 3292608 ns = 3ms 292us 608ns  ( 0 % )
+	Migrations count: 0 / Mean Migration Interval: 0
+	CPU utilization:
+		CPU 0 : 3292608 ns = 3ms 292us 608ns  ( 100 % )
+	Locks contentions:
+
+Thread 6 : VMThread
+	priority range: 40 - 100
+	CPU time: 2339618 ns = 2ms 339us 618ns  ( 0 % )
+	Migrations count: 0 / Mean Migration Interval: 0
+	CPU utilization:
+		CPU 0 : 2339618 ns = 2ms 339us 618ns  ( 100 % )
+	Locks contentions:
+
+Thread 7 : Reference Handler
+	priority range: 30 - 53
+	CPU time: 310685226 ns = 310ms 685us 226ns  ( 6 % )
+	Migrations count: 0 / Mean Migration Interval: 0
+	CPU utilization:
+		CPU 0 : 310685226 ns = 310ms 685us 226ns  ( 100 % )
+	Locks contentions:
+
+Thread 8 : Finalizer
+	priority range: 30 - 53
+	CPU time: 1300640 ns = 1ms 300us 640ns  ( 0 % )
+	Migrations count: 0 / Mean Migration Interval: 0
+	CPU utilization:
+		CPU 0 : 1300640 ns = 1ms 300us 640ns  ( 100 % )
+	Locks contentions:
+
+Thread 9 : Surrogate Locker Thread (CMS)
+	priority range: 30 - 129
+	CPU time: 340502137 ns = 340ms 502us 137ns  ( 7 % )
+	Migrations count: 0 / Mean Migration Interval: 0
+	CPU utilization:
+		CPU 0 : 340502137 ns = 340ms 502us 137ns  ( 100 % )
+	Locks contentions:
+
+Thread 10 : Signal Dispatcher
+	priority range: 43 - 100
+	CPU time: 368744 ns = 368us 744ns  ( 0 % )
+	Migrations count: 0 / Mean Migration Interval: 0
+	CPU utilization:
+		CPU 0 : 368744 ns = 368us 744ns  ( 100 % )
+	Locks contentions:
+
+Thread 11 : CompilerThread0
+	priority range: 43 - 100
+	CPU time: 7952858 ns = 7ms 952us 858ns  ( 0 % )
+	Migrations count: 0 / Mean Migration Interval: 0
+	CPU utilization:
+		CPU 0 : 7952858 ns = 7ms 952us 858ns  ( 100 % )
+	Locks contentions:
+
+Thread 12 : LowMemoryDetectorThread
+	priority range: 43 - 43
+	CPU time: 430264 ns = 430us 264ns  ( 0 % )
+	Migrations count: 0 / Mean Migration Interval: 0
+	CPU utilization:
+		CPU 0 : 430264 ns = 430us 264ns  ( 100 % )
+	Locks contentions:
+
+Thread 13 : WatcherThread
+	priority range: 43 - 43
+	CPU time: 463285 ns = 463us 285ns  ( 0 % )
+	Migrations count: 0 / Mean Migration Interval: 0
+	CPU utilization:
+		CPU 0 : 463285 ns = 463us 285ns  ( 100 % )
+	Locks contentions:
