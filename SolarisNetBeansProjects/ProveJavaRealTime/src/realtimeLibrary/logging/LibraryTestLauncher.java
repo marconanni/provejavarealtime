@@ -20,9 +20,10 @@ public class LibraryTestLauncher {
         // test per i log OK
 //        testLogs();
         // testa il metodo SimpleMerge OK
-        testUtilSimpleMerge();
+//        testUtilSimpleMerge();
         // testa il metodo relativemerge
 //        testUtilRelativeMerge();
+        
 
     }
 

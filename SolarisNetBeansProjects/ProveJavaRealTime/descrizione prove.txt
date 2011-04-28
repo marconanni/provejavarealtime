@@ -60,3 +60,24 @@ classe) per un certo tempo; mentre il processo a bassa priorità uas la risorsa 
  la priorità corrente al processo a bassa priorità, questo dovrebbe aver ereditato
 la priorità dell'altro.
 
+Prova 8:
+
+Proviamo a configuare la busy excecution come ci aveva suggerito Faldella:
+il thread fa un ciclo infinito e ha asociato un hadler di cost overrun che provvede
+a modificare una varibile endjob del thread. quando questa è settata a true il
+thread finisce l'esecuzione.
+
+Purtroppo la cosa non funziona: l'handler di cost overrun non viene mai chiamato.
+I release parameters del thred riportano la soglia di costo indicata, ma sembra
+che questa non venga sfruttata. Assegnando l'handler anche come gestore di deadline,
+questo viene effettivamente chiamato quando sopraggiunge la deadline.
+
+Prova9:
+
+come la prova 8 vediamo se va la funzionalità di controllo di cost overrun,
+stavolta con un processo periodico.
+
+Neanche così funziona, sembra proprio che la funzionalità di monitoraggio costi
+sia disattivata.
+
+
