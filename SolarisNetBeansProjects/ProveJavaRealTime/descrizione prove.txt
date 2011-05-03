@@ -80,4 +80,11 @@ stavolta con un processo periodico.
 Neanche così funziona, sembra proprio che la funzionalità di monitoraggio costi
 sia disattivata.
 
+Prova 10:
+
+Proviamo la funzionalità di busyWait: creo un processo periodico, con periodo di
+1 secondo e con lavoro di mezzo secondo. Non mi resta che stampare quando
+inizia e quando finisce il lavoro in modo da verificare se i tempi di esecuzione
+sono rispettati.
+
 

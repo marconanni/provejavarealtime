@@ -18,6 +18,7 @@ import javax.realtime.RealtimeThread;
 public class InitializerServerThread extends RealtimeThread{
 
     private long iterationCount=0;
+    private boolean continueExcecution = true;
 
     /**
      *
@@ -33,14 +34,25 @@ public class InitializerServerThread extends RealtimeThread{
      * ad ogni ciclo il numero di iterazioni eseguite
      */
     public void run() {
+        this.setName("initializerServerThread");
         this.iterationCount=0;
         int k =3;
-        while(true){
+        while(continueExcecution){
             k++;
             k--;
             iterationCount++;
         }
     }
+
+    public boolean isContinueExcecution() {
+        return continueExcecution;
+    }
+
+    public void setContinueExcecution(boolean continueExcecution) {
+        this.continueExcecution = continueExcecution;
+    }
+
+    
 
 
 
