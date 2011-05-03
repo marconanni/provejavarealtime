@@ -37,12 +37,13 @@ public class InitializerMasterThread extends RealtimeThread {
      * del thread server e guarda quanti cicli ha eseguito nel frattempo.
      */
     public void run() {
+        this.setName("initializerMasterThread");
         initializerServerThread = new InitializerServerThread();
         initializerServerThread.setPriority(this.getPriority()-1);
         initializerServerThread.start();
         try {
             Thread.sleep(initializationTime); // vedi di usare un timer realtime anzichè il metodo sleep
-            initializerServerThread.interrupt();
+            initializerServerThread.setContinueExcecution(false);
         } catch (InterruptedException ex) {
             Logger.getLogger(InitializerMasterThread.class.getName()).log(Level.SEVERE, null, ex);
         }
