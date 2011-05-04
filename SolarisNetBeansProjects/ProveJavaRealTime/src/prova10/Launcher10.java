@@ -54,7 +54,7 @@ public class Launcher10 extends RealtimeThread {
         AbsoluteTime zeroTime = Clock.getRealtimeClock().getTime();
         thread.start();
         try {
-            thread.join(20000);
+            thread.join(80000);
         } catch (InterruptedException ex) {
             Logger.getLogger(Launcher10.class.getName()).log(Level.SEVERE, null, ex);
         }

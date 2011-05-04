@@ -196,3 +196,10 @@ prova10/Launcher10
 prova10/WorkerThread10
 realtimeLibrary/busyWait/InitializerMasterThread
 java/lang/StrictMath
+realtimeLibrary/schedulables/CpuDespotTrhread
+prova11/Launcher11
+prova11/BadThread11
+realtimeLibrary/schedulables/PeriodicThread
+realtimeLibrary/schedulables/DeadlineMissHandler
+java/lang/NumberFormatException
+java/lang/IllegalArgumentException
