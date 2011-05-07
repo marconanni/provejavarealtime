@@ -18,10 +18,9 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        float f = (float) 2.6;
-        System.out.println(f);
-        long k = (long) f;
-        System.out.println(k);
+       System.out.println("".equals(""));
+      
+
        
     }
 

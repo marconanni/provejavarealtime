@@ -33,6 +33,7 @@ public class InitializerServerThread extends RealtimeThread{
      * magari da migliorare introducendo operazioni più pesanti, incrementa
      * ad ogni ciclo il numero di iterazioni eseguite
      */
+    @Override
     public void run() {
         this.setName("initializerServerThread");
         this.iterationCount=0;

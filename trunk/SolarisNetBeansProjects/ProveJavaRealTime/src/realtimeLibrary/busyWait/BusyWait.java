@@ -106,7 +106,7 @@ public class BusyWait {
         // così tronco la parte decimale
             long numberOfIteration = (long) ((this.getCicliPerMillisecondo() * milliseconds));
             int k =3;
-            for (int i =0; i<numberOfIteration; i++){
+            for (long i =0; i<numberOfIteration; i++){
                 k++;
                 k--;
             }
@@ -147,7 +147,7 @@ public class BusyWait {
         return instance;
     }
 
-    public static void setInstance(BusyWait instance) {
+    protected static void setInstance(BusyWait instance) {
         BusyWait.instance = instance;
     }
 
