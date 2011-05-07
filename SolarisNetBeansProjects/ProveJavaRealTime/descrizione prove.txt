@@ -88,3 +88,72 @@ inizia e quando finisce il lavoro in modo da verificare se i tempi di esecuzione
 sono rispettati.
 
 
+Prova 11:
+
+ho due thread: uno più prioritario che alla seconda esecuzione ha un tempo di
+di esecuzione più lungo del normale, tale da far sforare la deadline al secondo.
+non sono previsti handlers.
+
+Il comportamento è strano: il secondo, una volta sforata la deadline, come
+è logico subisce preemption dalla nuova release del thread più prioritario.
+Conclude quindi il job nel periodo successivo una volta terminata l'esecuzione
+del thread a prirità maggiore, a questa accoda immediatamente l'esecuzione del
+job relativo a quel periodo. La cosa strana è che, terminata anche questa,
+il thread meno prioritario esegue anche il job relativo al periodo successivo.
+Che dovrebbe, invece essere schedulato solo all'inizio del prossimo periodo.
+
+Facendo fare solo due cicli al thread1 (che quindi finisce dopo l'esecuzione lunga)
+e ben 7 al thread due, si può notare come, dopo lo sforamento del secondo job
+nel terzo periodo vengono eseguiti il secondo, il terzo ed il quarto job.
+A questo punto, il thread si sospende ed inizia ad eseguire una iterazione
+a ciclo, fino ad arrivare al numero di iterazioni specificate, peccato che
+tutto finisca, ovviamente un ciclo prima del dovuto, visto che, nel ciclo
+sucessivo allo sforamento della deadline, il job viene eseguito due volte.
+
+Prova 12:
+
+Lo scenario è analogo al precedente, la differenza è che al thread 2 è associato
+un handler per la deadline missed che , dopo aver scritto nel log
+provvede a chiamare l'operazione schedulePeriodic del thread2.
+
+in presenza dell'handler tutto funziona bene, visto che nel ciclo successivo
+viene terminato il job non concluso ed eseguito solo quello relativo al ciclo
+attuale. Successivamente tutti gli altri job vengono schedulati correttamente.
+
+Prova 13:
+
+Due thread con lo stesso periodo. Quello a priorità maggiore fa un'esecuzione
+ molto lunga,  più di due periodi. Lo scopo è controllare quanti deadline
+missed vengono invocati e come vengono schedulati i job differiti del secondo
+thread.
+
+Il sistema si comporta come ci si aspettava:  relativamente
+al secondo thread vengono lanciati due eventi
+di deadline miss. Nel terzo periodo, una volta terminato il job del primo
+thread, vengono eseguiti consecutivmente 3 job del secondo thread: i due dei
+peridi precedenti e quello del terzo. Poi il sistema si sospende e il rilascio
+dei job del secondo thread avviene correttamente all'inizio di ogni nuovo
+periodo.
+
+Prova 14:
+
+Lo scenario è quello dell'esempio 13. Nell'handler provo a giocare con i metodi
+che alterano il fireCount.
+
+Mi sono sbagliato: il fire count è ralativo agli eventi accaduti, ma non ancora
+notificati agli handlers. Nel nostro caso l'evento viene sempre raccolto.
+Quello che sarebbe da modificare sarebbe un parametro alla pending releases,
+del quale però non vi è traccia. Il comportamento as soon as possible, quindi
+non è modificabile, al meno di non fare "i bambini coi baffi".
+
+Prova 15:
+Lo scopo dellaprova è verificare il funzionamento del priority inheritance
+nell'acesso a blocchi innestati. In particolare il processo p3
+accede a r2 , usata anche dal processo p2 e, all'interno dello sfruttamento
+di r2 accede a r1 usata anche da p1. i vari thread vengono fatti partire in modo
+che chiedano la risorsa quando p3 l'ha già occupata.
+
+Il risultato è buono. la priorità di p3 sale a gradini, sia in salita, sia in
+discesa( quando libera man mano le risorse).
+
+

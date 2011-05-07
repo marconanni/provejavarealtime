@@ -7,6 +7,7 @@ package realtimeLibrary.schedulables;
 
 import javax.realtime.AbsoluteTime;
 import javax.realtime.AsyncEventHandler;
+import javax.realtime.HighResolutionTime;
 import javax.realtime.PeriodicParameters;
 import javax.realtime.RealtimeThread;
 import javax.realtime.RelativeTime;
@@ -45,17 +46,23 @@ public class PeriodicThread extends RealtimeThread {
 
     @Override
     public void run() {
-        BusyWait busyWait = BusyWait.getInstance();
-        for (int k =0; k< this.getNumberOfIterations(); k++){
+       
+        for (int i =0; i< this.getNumberOfIterations(); i++){
            this.getLog().writeStartJob();
-            busyWait.doJobFor(excecutionTime);
+            doJob();
             this.getLog().writeEndJob();
-            this.waitForNextPeriod();
+            PeriodicThread.waitForNextPeriod();
         }
     }
 
-    
+    protected void doJob() {
+        BusyWait.getInstance().doJobFor(this.getExcecutionTime());
+    }
 
+    public void setDeadlineMissedHandler(AsyncEventHandler missHandler){
+        PeriodicParameters currentParameters = (PeriodicParameters)this.getReleaseParameters();
+        currentParameters.setDeadlineMissHandler(missHandler);
+    }
 
 
 

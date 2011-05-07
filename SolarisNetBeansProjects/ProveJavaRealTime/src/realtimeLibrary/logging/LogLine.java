@@ -12,7 +12,9 @@ import javax.realtime.*;
  *
  * @author Marco Nanni
  *
- * classe che rappresenta la linea di un file di log
+ * classe che rappresenta la linea di un file di log, ha come campi
+ * il codice dell'evento, la sua descrizione, il nome dello schedulable
+ * che ha generato l'evento e il timestamp dell'evento stesso.
  */
 
 public class LogLine {

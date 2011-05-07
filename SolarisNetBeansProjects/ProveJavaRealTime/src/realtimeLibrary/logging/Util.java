@@ -69,10 +69,13 @@ public class Util {
         TreeMap <RelativeTime,LogLine> map = new TreeMap<RelativeTime, LogLine>();
         //estraggo tutti gli eventi di ogni log e li inserisco nella mappa.
         for(int k=0 ; k< logList.size(); k++){
-            List<LogLine> currentLogLines = logList.get(k).getLines();
-            for(int j=0; j<currentLogLines.size(); j++)
-                map.put(currentLogLines.get(j).getTime().subtract(zeroTime), currentLogLines.get(j));
-        }
+            
+            if (!logList.get(k).getLines().isEmpty()){ // il log potrebbe anche non avere alcun evento registrayo
+                List<LogLine> currentLogLines = logList.get(k).getLines();
+                for(int j=0; j<currentLogLines.size(); j++)
+                    map.put(currentLogLines.get(j).getTime().subtract(zeroTime), currentLogLines.get(j));
+            }
+         }
         // ora stampo tutte le linee di log nella stringa
         String result = "";
         RelativeTime firstKey;

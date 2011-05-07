@@ -22,6 +22,10 @@ public class Log {
 
     protected static CodeDescription codeDescription = new CodeDescription();
 
+    /**
+     * 
+     * @return la mappa che collega i codici degli eventi ad una loro descrizione
+     */
     public static CodeDescription getCodeDescription() {
         return codeDescription;
     }
@@ -73,7 +77,7 @@ public class Log {
         sw.write(threadName+";");
         sw.write(eventCode+";");
         sw.write(Clock.getRealtimeClock().getTime().getMilliseconds()+";");
-        sw.write(Clock.getRealtimeClock().getTime().getMilliseconds()+"\n");
+        sw.write(Clock.getRealtimeClock().getTime().getNanoseconds()+"\n");
 
 
     }
@@ -108,8 +112,18 @@ public class Log {
         return this.getStringWriter().toString();
     }
 
+    /**
+     *
+     * @return un vettore di LogLine, con un elemento per ogni evento registrato
+     * qualora nel log non ci sono registrati eventi viene restituito
+     * un vector vuoto
+     */
     public List<LogLine> getLines(){
+
         Vector<LogLine> result = new Vector<LogLine>();
+        // se il buffer è vuoto restituisco un vector vuoto
+        if (this.getStringWriter().toString().equals(""))
+            return result;
         String [] lines = (this.getStringWriter().toString()).split("\n");
         
         for(int k =0; k<lines.length;k++){
@@ -120,6 +134,7 @@ public class Log {
             String [] parts = lines[k].split(";");
             String threadName = parts[0];
             String code = parts[1];
+            
             AbsoluteTime eventTime = new AbsoluteTime(Long.parseLong(parts[2]), Integer.parseInt(parts[3]));
             result.add(new LogLine(code, eventTime, threadName));
 

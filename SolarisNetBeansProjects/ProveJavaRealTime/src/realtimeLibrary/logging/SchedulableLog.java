@@ -59,7 +59,7 @@ public class SchedulableLog extends Log{
      */
      public void writeDeadlineMissed(String misserName){
 
-            super.writeEvent(misserName,"30");
+            super.writeEvent(misserName,"60");
 
     }
 
