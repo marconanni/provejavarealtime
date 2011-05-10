@@ -38,6 +38,10 @@ public class DeadlineMissedHandler extends AsyncEventHandler  {
 
 
     @Override
+    /**
+     * questa gestione non fa altro che scrivere l'evento sul log
+     * e rischedulare il thread che ha sforato la deadline,
+     */
     public void handleAsyncEvent() {
         Thread.currentThread().setName(this.getName());
         log.writeDeadlineMissed(controlledThread.getName());
