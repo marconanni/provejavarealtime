@@ -955,3 +955,4 @@ prova15/R1	useResource	(Ljava/lang/Thread;)V	rtt
 prova15/R2	<init>	(Ljava/lang/String;)V	rtt
 prova15/R2	setR1	(Lprova15/R1;)V	rtt
 prova15/R2	useResource	(Ljava/lang/Thread;)V	rtt
+realtimeLibrary/schedulables/PeriodicThread	doJob	()V	rtt

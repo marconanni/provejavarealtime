@@ -5,13 +5,10 @@
 
 package realtimeLibrary.schedulables;
 
-import javax.realtime.AbsoluteTime;
 import javax.realtime.AsyncEventHandler;
-import javax.realtime.HighResolutionTime;
 import javax.realtime.PeriodicParameters;
 import javax.realtime.RealtimeThread;
 import javax.realtime.RelativeTime;
-import javax.realtime.ReleaseParameters;
 import realtimeLibrary.busyWait.BusyWait;
 import realtimeLibrary.logging.SchedulableLog;
 
@@ -23,9 +20,10 @@ import realtimeLibrary.logging.SchedulableLog;
  */
 public class PeriodicThread extends RealtimeThread {
 
-    private long excecutionTime;
-    private SchedulableLog log;
-    private int numberOfIterations;
+    private long excecutionTime; // il tempo di esecuzione effettivo di ogni job
+    private SchedulableLog log; // il log del thread
+    private int numberOfIterations;// il numero di cicli che il thread deve eseguire
+    private int skipNumber; // valore utilizzato in caso di politica SKIP di gestione dei sovraccarichi: indica quanti cicli bisogna saltare: viene settato dal deadlineMissedHandler 
 
     public PeriodicThread(String name,long excecutionTime, int numberOfIterations, int priority, RelativeTime period,RelativeTime startTime, RelativeTime deadline, AsyncEventHandler deadlineHandler) {
 
@@ -45,14 +43,34 @@ public class PeriodicThread extends RealtimeThread {
     }
 
     @Override
+    /*
+     * corpo dell'esecuzione del thread, per ogni ciclo di esecuzione (job)
+     * se il valore di skipNumber è pari a zero (quindi non ci sono release pendenti
+     * con politica skip) scrivo l'inizio e la fine del job sul log ed eseguo una
+     * busy wait di durata pari ad excecutionTime.
+     * Se il parametro skipNumber è maggiore di zero, lo decremento e non faccio altro.
+     */
     public void run() {
-       
-        for (int i =0; i< this.getNumberOfIterations(); i++){
+
+        if (this.getSkipNumber()==0){
+
+            for (int i =0; i< this.getNumberOfIterations(); i++){
            this.getLog().writeStartJob();
             doJob();
             this.getLog().writeEndJob();
             PeriodicThread.waitForNextPeriod();
+             }
+
         }
+         else{
+            this.decrementSkipNumber();
+
+         }
+
+
+
+       
+
     }
 
     protected void doJob() {
@@ -89,6 +107,39 @@ public class PeriodicThread extends RealtimeThread {
     public void setNumberOfIterations(int numberOfIterations) {
         this.numberOfIterations = numberOfIterations;
     }
+
+    /**
+     *
+     * @return il numero di esecuzioni che devono essere saltate
+     */
+    public int getSkipNumber() {
+        return skipNumber;
+    }
+
+    /**
+     *
+     * @param skipNumber il numero di esecuzioni che devono essere saltate
+     */
+    public void setSkipNumber(int skipNumber) {
+        this.skipNumber = skipNumber;
+    }
+
+    /**
+     * incrementa  il numero di esecuzioni che devono essere saltate,
+     * questo metodo viene usato soprattutto da un handler di deadlinemissed
+     * con politica skip
+     */
+    public void incrementSkipNumber() {
+        this.skipNumber++;
+    }
+    /**
+     * decrementa  il numero di esecuzioni che devono essere saltate,
+     */
+    public void decrementSkipNumber() {
+        this.skipNumber--;
+    }
+
+
 
     
 

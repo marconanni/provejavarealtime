@@ -157,3 +157,6 @@ Il risultato è buono. la priorità di p3 sale a gradini, sia in salita, sia in
 discesa( quando libera man mano le risorse).
 
 
+Prova 16:
+Proviamo la politica di skip: un badThread fa un'esecuzione che termina solo
+nel terzo periodo, ad esso è associato un o SkipPolicyHandler.
