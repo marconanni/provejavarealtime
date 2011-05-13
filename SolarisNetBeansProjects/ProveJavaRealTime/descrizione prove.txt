@@ -160,3 +160,15 @@ discesa( quando libera man mano le risorse).
 Prova 16:
 Proviamo la politica di skip: un badThread fa un'esecuzione che termina solo
 nel terzo periodo, ad esso è associato un o SkipPolicyHandler.
+Ok, funziona bene.
+
+Prova 17:
+
+creo un thread che sfora la deadline, però l'handler, anzichè rischedularlo
+subito, si addormenta per cinque cicli e poi lo rischedula: che succede?
+
+Questa prova mi ha fatto capire che in realtà non avevo capito bene csa succede
+in caso di deadlinemissed. Sembra che, quando gli associo un handler,
+anche se non chiamo schedule periodic, l'esecuzione di quel job continua...
+e le altre non vengono schedulate, ossia schedule periodic serve solo
+a sbloccare il thread 

@@ -219,3 +219,11 @@ realtimeLibrary/logging/ResourceLog
 prova15/ResourceThread15
 prova15/R1
 prova15/R2
+prova16/Launcher16
+realtimeLibrary/schedulables/BadThread
+realtimeLibrary/schedulables/SkipPolicyHandler
+prova17/Launcher17
+prova17/SleepingHandler
+java/lang/NoClassDefFoundError
+prova05/WorkerThread5
+prova05/DeadlineHandler

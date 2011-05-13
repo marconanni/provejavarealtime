@@ -21,8 +21,8 @@ public class LibraryTestLauncher {
 //        testLogs();
         // testa il metodo SimpleMerge OK
 //        testUtilSimpleMerge();
-        // testa il metodo relativemerge
-//        testUtilRelativeMerge();
+        // testa il metodo relativemerge OK
+        testUtilRelativeMerge();
         
 
     }
@@ -36,6 +36,7 @@ public class LibraryTestLauncher {
         try {
             Thread.currentThread().setName("Thread1");
             System.out.println("provaLog");
+            log.writeGenericMessage("Pippo");
             log.writeEvent("10");
             log.writeEvent("20");
             log.writeEvent("20");
@@ -93,6 +94,7 @@ public class LibraryTestLauncher {
         Log log2 = new Log();
         Log log3 = new Log();
         AbsoluteTime zerotime = Clock.getRealtimeClock().getTime();
+        
 
         log1.writeEvent("Thread1", "20", Clock.getRealtimeClock().getTime().add(2000, 0));
         log1.writeEvent("Thread1", "20", Clock.getRealtimeClock().getTime().add(4000, 0));

@@ -4,11 +4,9 @@
  */
 
 package realtimeLibrary.schedulables;
-import prova14.*;
 import javax.realtime.AsyncEventHandler;
 import javax.realtime.RelativeTime;
 import realtimeLibrary.busyWait.BusyWait;
-import realtimeLibrary.schedulables.*;
 
 /**
  *
@@ -41,44 +39,38 @@ public class BadThread extends PeriodicThread {
      * solo che nel ciclo badIteration fa una busy wait pari a badExcecutionTime
      */
     public void run() {
-
-    if (this.getSkipNumber()==0){
-
-        BusyWait busyWait = BusyWait.getInstance();
-
-            for (int i =0; i< this.getNumberOfIterations(); i++){
-               this.getLog().writeStartJob();
-
-               if (i==(this.getBadIteration()-1))// il contatore del for parte da 0
-                    busyWait.doJobFor(this.getBadExcecutionTime());
-                else
-                     busyWait.doJobFor(this.getExcecutionTime());
+    
+    BusyWait busyWait = BusyWait.getInstance();
 
 
-                this.getLog().writeEndJob();
-                PeriodicThread.waitForNextPeriod();
-             }
+    for (int i =0; i< this.getNumberOfIterations(); i++){
+        
 
-        }
-         else{
-            this.decrementSkipNumber();
-
-         }
-
-
-
-
-        BusyWait busyWait = BusyWait.getInstance();
-        for (int k =0; k< this.getNumberOfIterations(); k++){
+        if (this.getSkipNumber()==0){
             this.getLog().writeStartJob();
-            if (k==0)
-                busyWait.doJobFor(this.getBadExcecutionTime());
-            else
-            busyWait.doJobFor(this.getExcecutionTime());
+            if (i==((this.getBadIteration())-1))// il contatore del for parte da 0
+                    busyWait.doJobFor(this.getBadExcecutionTime());
+               
+            
+             else
+                 busyWait.doJobFor(this.getExcecutionTime());
             this.getLog().writeEndJob();
-            BadThread.waitForNextPeriod();
+            
+             
 
-        }
+
+        }// fine if skipnumber=0
+        else{
+            this.decrementSkipNumber();
+            this.getLog().writeSkippedJob();
+
+           }
+        
+        super.waitForNextPeriod();
+      
+    }// fine ciclo
+
+        
     }
 
    

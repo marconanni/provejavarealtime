@@ -17,12 +17,14 @@ public class CodeDescription extends Hashtable<String,String> {
 
     public CodeDescription() {
         super();
+        this.put("00", "messaggio generico");
         this.put("10", "creazione oggetto schedulabile");
         this.put("20", "inizio job");
         this.put("30", "termine job");
         this.put("40", "occupazione risorsa");
         this.put("50", "rilascio risorsa");
         this.put("60", "deadline non rispettata");
+        this.put("70", "job saltato per politica SKIP");
 
     }
 

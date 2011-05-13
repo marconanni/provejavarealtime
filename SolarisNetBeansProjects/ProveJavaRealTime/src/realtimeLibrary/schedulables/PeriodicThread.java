@@ -23,7 +23,7 @@ public class PeriodicThread extends RealtimeThread {
     private long excecutionTime; // il tempo di esecuzione effettivo di ogni job
     private SchedulableLog log; // il log del thread
     private int numberOfIterations;// il numero di cicli che il thread deve eseguire
-    private int skipNumber; // valore utilizzato in caso di politica SKIP di gestione dei sovraccarichi: indica quanti cicli bisogna saltare: viene settato dal deadlineMissedHandler 
+    private int skipNumber =0; // valore utilizzato in caso di politica SKIP di gestione dei sovraccarichi: indica quanti cicli bisogna saltare: viene settato dal deadlineMissedHandler
 
     public PeriodicThread(String name,long excecutionTime, int numberOfIterations, int priority, RelativeTime period,RelativeTime startTime, RelativeTime deadline, AsyncEventHandler deadlineHandler) {
 
@@ -52,20 +52,29 @@ public class PeriodicThread extends RealtimeThread {
      */
     public void run() {
 
+        BusyWait busyWait = BusyWait.getInstance();
+
+
+    for (int i =0; i< this.getNumberOfIterations(); i++){
+       
+
         if (this.getSkipNumber()==0){
+            this.getLog().writeStartJob();
+           this.doJob();
 
-            for (int i =0; i< this.getNumberOfIterations(); i++){
-           this.getLog().writeStartJob();
-            doJob();
-            this.getLog().writeEndJob();
-            PeriodicThread.waitForNextPeriod();
-             }
 
-        }
-         else{
+           this.getLog().writeEndJob();
+
+        }// fine if skipnumber=0
+        else{
             this.decrementSkipNumber();
+            this.getLog().writeSkippedJob();
 
-         }
+           }
+        
+        super.waitForNextPeriod();
+
+    }// fine ciclo
 
 
 
