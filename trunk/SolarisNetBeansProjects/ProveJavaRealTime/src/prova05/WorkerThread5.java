@@ -66,10 +66,10 @@ public class WorkerThread5 extends RealtimeThread{
 
         for (int k=0; k<iterations; k++){
             this.output("Sono il thread "+this.getName()+ " inizio l'iterazione "+k+" all'istante"+this.getCurrentTime());
-            if (k %2 ==0)
-               this.doJobFor(this.shortExecutionTime);
+            if (k  ==1)
+               this.doJobFor(this.getLongExcecutionTime());
             else
-                this.doJobFor(this.getLongExcecutionTime());
+                this.doJobFor(this.shortExecutionTime);
             
             
             this.output("Sono il thread "+this.getName()+ " finisco l'esecuzione dell'iterazione "+k+" all'istante"+this.getCurrentTime());

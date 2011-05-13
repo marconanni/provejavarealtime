@@ -63,5 +63,15 @@ public class SchedulableLog extends Log{
 
     }
 
+     /**
+      * scrive sul log l'evento relativo al fato che un job
+      * che di default verrebbe immediatamente accodato, per recuperare
+      * da una missed deadline diun job precedente
+      * viene saltato perchè perchè vi usa la politica skip
+      */
+     public void writeSkippedJob(){
+         super.writeEvent("70");
+     }
+
 
 }

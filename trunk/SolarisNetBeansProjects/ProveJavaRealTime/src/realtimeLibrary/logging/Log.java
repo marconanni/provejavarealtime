@@ -102,6 +102,20 @@ public class Log {
 
     }
 
+    /**
+     * Metodo che consente di scrivere su log un messaggio generale,
+     * utile ai fini di debug, il testo del messaggio viene
+     * inserito nel campo altrimenti utilizzato per il nome del thread,
+     *  viene infatti scritta una stringa del tipo
+     * testoMessaggio ;00;millisecondi;nanosecondi
+     *
+     * @param message il testo del messaggio da scrivere sul log,
+     * si consigna di tenere il testo del messaggio il iù conciso possibile.
+     */
+    public void writeGenericMessage(String message){
+        this.writeEvent(message, "00");
+    }
+
 
 
 

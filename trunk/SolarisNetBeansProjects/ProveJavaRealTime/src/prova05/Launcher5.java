@@ -25,15 +25,20 @@ public class Launcher5 {
         WorkerThread5 thread1 = new WorkerThread5();
         thread1.setStringWriter(stringWriter);
         thread1.setShortExecutionTime(500);
-        thread1.setLongExcecutionTime(2000);
+        thread1.setLongExcecutionTime(1200);
         thread1.setName("Thread1");
         thread1.setPriority((PriorityScheduler.instance().getMaxPriority())-10);
-        PeriodicParameters sp = new PeriodicParameters(null, new RelativeTime(1000,0), null, new RelativeTime(700,0), null, handler);
+        PeriodicParameters sp = new PeriodicParameters(null, new RelativeTime(1000,0), null, new RelativeTime(1000,0), null, handler);
         sp.setDeadlineMissHandler(handler);
         thread1.setReleaseParameters(sp);
         handler.setControlledThread(thread1);
         thread1.setZeroTime(Clock.getRealtimeClock().getTime());
         handler.setZeroTime(Clock.getRealtimeClock().getTime());
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Launcher5.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println("Prova5: lancio");
         thread1.start();
         

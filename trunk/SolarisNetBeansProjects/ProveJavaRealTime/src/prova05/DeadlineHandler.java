@@ -58,7 +58,8 @@ public class DeadlineHandler extends BoundAsyncEventHandler {
         this.missedDeadlineCount++;
         this.output("Deadline Sforata all'istante "+this.getCurrentTime()+" con questa ho sforato la deadline già "+this.getMissedDeadlineCount()+" volte");
        if(this.controlledThread !=null)
-           this.getControlledThread().schedulePeriodic();
+//           this.getControlledThread().schedulePeriodic();
+           ;
 
     }
 
