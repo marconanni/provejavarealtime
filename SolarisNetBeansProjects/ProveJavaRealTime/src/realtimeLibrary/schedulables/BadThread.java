@@ -44,6 +44,7 @@ public class BadThread extends PeriodicThread {
 
 
     for (int i =0; i< this.getNumberOfIterations(); i++){
+ 
         
 
         if (this.getSkipNumber()==0){

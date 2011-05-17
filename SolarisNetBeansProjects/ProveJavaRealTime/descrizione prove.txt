@@ -171,4 +171,14 @@ Questa prova mi ha fatto capire che in realtà non avevo capito bene csa succede
 in caso di deadlinemissed. Sembra che, quando gli associo un handler,
 anche se non chiamo schedule periodic, l'esecuzione di quel job continua...
 e le altre non vengono schedulate, ossia schedule periodic serve solo
-a sbloccare il thread 
+a sbloccare il thread.
+Ho fatto una serie di esperimenti, cambiando qulacosa man mano in prove 17
+proprio per vedere cosa succede in caso di deadline missed,da questi esperimenti
+scaturisce il documento "cosa succede in caso di deadlineMissed"
+
+Prova 18:
+Questa prova serve a capire come funziona uno scheduler, visto che la
+specifica è molto lacunosa a riguardo. Costruisco quindi un mio scheduler vuoto,
+metto un breackpoint in ogni metodo in modo da vedere quando questi vengono chiamati
+e con quali parametri.
+
