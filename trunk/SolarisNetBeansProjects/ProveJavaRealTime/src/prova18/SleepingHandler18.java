@@ -3,11 +3,14 @@
  * and open the template in the editor.
  */
 
-package prova17;
+package prova18;
 
+import prova17.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.realtime.PeriodicParameters;
 import javax.realtime.RealtimeThread;
+import javax.realtime.RelativeTime;
 import realtimeLibrary.busyWait.BusyWait;
 import realtimeLibrary.schedulables.DeadlineMissedHandler;
 
@@ -17,17 +20,17 @@ import realtimeLibrary.schedulables.DeadlineMissedHandler;
  * rischedulare il thread si addormenta per un numero settabile
  * di millisecondi
  */
-public class SleepingHandler extends DeadlineMissedHandler {
+public class SleepingHandler18 extends DeadlineMissedHandler {
 
     private long sleepingTime =0;
     static boolean firstTime=true;
    
 
-    public SleepingHandler() {
+    public SleepingHandler18() {
         super();
     }
 
-    public SleepingHandler(RealtimeThread controlledThread, int priority, String name, long sleepingTime) {
+    public SleepingHandler18(RealtimeThread controlledThread, int priority, String name, long sleepingTime) {
         super(controlledThread, priority, name);
         this.sleepingTime=sleepingTime;
 
@@ -36,23 +39,24 @@ public class SleepingHandler extends DeadlineMissedHandler {
     @Override
     public void handleAsyncEvent() {
         super.getLog().writeDeadlineMissed(this.getControlledThread().getName());
+        super.getControlledThread().schedulePeriodic();
 
       
-            super.getLog().writeGenericMessage(this.getControlledThread().getName()+"handler chiamato da "+Thread.currentThread().getName()+" id "+Thread.currentThread().getId() );
-            
+                 
             try {
                if (firstTime)
                 Thread.sleep(sleepingTime);
                firstTime=false;
         } catch (InterruptedException ex) {
-            Logger.getLogger(SleepingHandler.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SleepingHandler18.class.getName()).log(Level.SEVERE, null, ex);
         }
                
-            super.getLog().writeGenericMessage("schedule periodic");
+            super.getLog().writeGenericMessage(" changing release parameters");
+            super.getControlledThread().setReleaseParameters(new PeriodicParameters(new RelativeTime(200, 0)));
 
           
-            super.getControlledThread().schedulePeriodic();
-            super.getControlledThread().schedulePeriodic();
+         
+            
        
 
     }
