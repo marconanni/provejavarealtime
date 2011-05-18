@@ -111,6 +111,7 @@ java/security/CodeSource
 java/security/PermissionCollection
 java/security/SecureClassLoader$CreateProtectionDomainLogic
 java/security/ProtectionDomain
+java/lang/Package$1
 javax/realtime/AbsoluteTime
 javax/realtime/HighResolutionTime
 javax/realtime/Clock
@@ -165,3 +166,4 @@ realtimeLibrary/logging/LogLine
 java/util/TreeMap$Entry
 prova18/SleepingHandler18
 prova18/DummyPriorityScheduler
+java/io/IOException

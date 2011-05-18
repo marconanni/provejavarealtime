@@ -1057,3 +1057,9 @@ prova18/DummyPriorityScheduler	getMaxPriority	()I	rtt
 prova18/DummyPriorityScheduler	getNormPriority	()I	rtt
 realtimeLibrary/schedulables/DeadlineMissedHandler	setControlledThread	(Ljavax/realtime/RealtimeThread;)V	rtt
 javax/realtime/PriorityScheduler	<init>	()V	rtt
+javax/realtime/DummyPriorityScheduler	<init>	()V	rtt
+javax/realtime/DummyPriorityScheduler	getMinPriority	()I	rtt
+javax/realtime/DummyPriorityScheduler	getMaxPriority	()I	rtt
+javax/realtime/DummyPriorityScheduler	getNormPriority	()I	rtt
+java/io/IOException	<init>	(Ljava/lang/String;)V	rtt
+realtimeLibrary/schedulables/DeadlineMissedHandler	setPriority	(I)V	rtt

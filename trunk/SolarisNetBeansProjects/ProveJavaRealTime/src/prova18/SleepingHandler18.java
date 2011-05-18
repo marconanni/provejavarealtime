@@ -39,7 +39,7 @@ public class SleepingHandler18 extends DeadlineMissedHandler {
     @Override
     public void handleAsyncEvent() {
         super.getLog().writeDeadlineMissed(this.getControlledThread().getName());
-        super.getControlledThread().schedulePeriodic();
+        
 
       
                  
@@ -51,8 +51,8 @@ public class SleepingHandler18 extends DeadlineMissedHandler {
             Logger.getLogger(SleepingHandler18.class.getName()).log(Level.SEVERE, null, ex);
         }
                
-            super.getLog().writeGenericMessage(" changing release parameters");
-            super.getControlledThread().setReleaseParameters(new PeriodicParameters(new RelativeTime(200, 0)));
+            super.getLog().writeGenericMessage(" changsupering release parameters");
+            super.getControlledThread().schedulePeriodic();
 
           
          
