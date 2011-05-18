@@ -42,10 +42,7 @@ public class Launcher18 extends RealtimeThread {
         Scheduler.setDefaultScheduler(dummyPriorityScheduler);
 
 
-//        // creo il thread che deve occupare una cpu
-//        CpuDespotTrhead despotTrhead = new CpuDespotTrhead();
-//        despotTrhead.setName("despotThread");
-//        despotTrhead.setPriority(PriorityScheduler.instance().getNormPriority()+4);
+
 
         
         
@@ -59,18 +56,19 @@ public class Launcher18 extends RealtimeThread {
         th1.setPriority(PriorityScheduler.instance().getNormPriority()+1);
 
         th1.setExcecutionTime(20);
-        th1.setBadExcecutionTime(20);
+        th1.setBadExcecutionTime(120);
         th1.setBadIteration(1);
         th1.setNumberOfIterations(6);
 
        
        
-//        SleepingHandler18 handler = new SleepingHandler18();
-//        handler.setControlledThread(th1);
-//
-//
-//        handler.setSleepingTime(50);
-//        th1.setDeadlineMissedHandler(handler);
+        SleepingHandler18 handler = new SleepingHandler18();
+        handler.setPriority(PriorityScheduler.instance().getNormPriority()+2);
+        handler.setControlledThread(th1);
+
+
+        handler.setSleepingTime(0);
+        th1.setDeadlineMissedHandler(handler);
 
 
 
@@ -90,7 +88,7 @@ public class Launcher18 extends RealtimeThread {
 
 
         AbsoluteTime zeroTime = Clock.getRealtimeClock().getTime();
-//        despotTrhead.start();
+
        
         th1.start();
         
@@ -101,7 +99,7 @@ public class Launcher18 extends RealtimeThread {
             th1.join(6000);
             
             
-//            despotTrhead.setContinueExcecution(false);
+
         } catch (InterruptedException ex) {
             Logger.getLogger(Launcher18.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -112,7 +110,7 @@ public class Launcher18 extends RealtimeThread {
 
         Vector <Log> logs = new Vector<Log>();
         logs.add(th1.getLog());
-//        logs.add(handler.getLog());
+        logs.add(handler.getLog());
   
         
         

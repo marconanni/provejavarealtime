@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package prova18;
 
 import javax.realtime.MemoryParameters;
@@ -23,14 +22,13 @@ import realtimeLibrary.logging.Log;
  * quando vengono chiamati.
  */
 public class DummyPriorityScheduler extends PriorityScheduler {
+
     private Log log;
 
     public DummyPriorityScheduler() {
         super();
         this.log = new Log();
     }
-
-
 
     @Override
     protected synchronized boolean addToFeasibility(Schedulable schedulable) {
@@ -95,16 +93,11 @@ public class DummyPriorityScheduler extends PriorityScheduler {
     @Override
     public boolean setIfFeasible(Schedulable schedulable, SchedulingParameters sched, ReleaseParameters release, MemoryParameters memory, ProcessingGroupParameters group) {
         log.writeGenericMessage("setIfFeasible");
-        
+
         return super.setIfFeasible(schedulable, sched, release, memory, group);
     }
 
-
-
-
-
-
-    
+   
 
     public Log getLog() {
         return log;
@@ -113,9 +106,4 @@ public class DummyPriorityScheduler extends PriorityScheduler {
     public void setLog(Log log) {
         this.log = log;
     }
-
-
-
-
-
 }

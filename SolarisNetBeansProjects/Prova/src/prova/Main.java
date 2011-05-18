@@ -6,6 +6,7 @@
 package prova;
 
 import java.util.StringTokenizer;
+import javax.realtime.*;
 
 /**
  *
@@ -17,8 +18,18 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        RealtimeThread th1 = new RealtimeThread();
+       System.out.println(""+th1.getPriority());
+        
+        System.out.println(""+PriorityScheduler.instance().getNormPriority());
 
-       System.out.println("".equals(""));
+        AsyncEventHandler handler = new AsyncEventHandler();
+
+        System.out.println(""+((PriorityParameters)handler.getSchedulingParameters()).getPriority());
+
+
+     
       
 
        
