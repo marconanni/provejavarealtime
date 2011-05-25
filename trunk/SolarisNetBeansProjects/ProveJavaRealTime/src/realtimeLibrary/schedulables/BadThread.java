@@ -31,48 +31,16 @@ public class BadThread extends PeriodicThread {
         super ();
     }
 
+    @Override
+    protected void doJob() {
+        if(this.getBadIteration()== super.getCurrentIteration())
+            BusyWait.getInstance().doJobFor(this.getBadExcecutionTime());
+        else
+            BusyWait.getInstance().doJobFor(super.getExcecutionTime());
 
-
-@Override
-    /**
-     * il corpo del metodo è simile a quello della superclasse @link PeriodicThread
-     * solo che nel ciclo badIteration fa una busy wait pari a badExcecutionTime
-     */
-    public void run() {
-    
-    BusyWait busyWait = BusyWait.getInstance();
-
-
-    for (int i =0; i< this.getNumberOfIterations(); i++){
- 
-        
-
-        if (this.getSkipNumber()==0){
-            this.getLog().writeStartJob();
-            if (i==((this.getBadIteration())-1))// il contatore del for parte da 0
-                    busyWait.doJobFor(this.getBadExcecutionTime());
-               
-            
-             else
-                 busyWait.doJobFor(this.getExcecutionTime());
-            this.getLog().writeEndJob();
-            
-             
-
-
-        }// fine if skipnumber=0
-        else{
-            this.decrementSkipNumber();
-            this.getLog().writeSkippedJob();
-
-           }
-        
-        super.waitForNextPeriod();
-      
-    }// fine ciclo
-
-        
     }
+
+
 
    
 

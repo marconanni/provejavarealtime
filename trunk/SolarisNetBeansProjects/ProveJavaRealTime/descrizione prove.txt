@@ -180,5 +180,11 @@ Prova 18:
 Questa prova serve a capire come funziona uno scheduler, visto che la
 specifica è molto lacunosa a riguardo. Costruisco quindi un mio scheduler vuoto,
 metto un breackpoint in ogni metodo in modo da vedere quando questi vengono chiamati
-e con quali parametri.
+e con quali parametri. In seconda battuta creo uno scheduler che estende
+lo scheduler di default e metto un breakpoint in ogni metodo. I risultati sono
+nel documento funzionamento scheduler.odt
+
+Prova 19:
+Questa prova serve a capire cosa succede quando si cambiano i parametri di
+un processo real time durante la sua esecuzione.
 

@@ -1063,3 +1063,6 @@ javax/realtime/DummyPriorityScheduler	getMaxPriority	()I	rtt
 javax/realtime/DummyPriorityScheduler	getNormPriority	()I	rtt
 java/io/IOException	<init>	(Ljava/lang/String;)V	rtt
 realtimeLibrary/schedulables/DeadlineMissedHandler	setPriority	(I)V	rtt
+prova19/Launcher19	run	()V	rtt
+prova17/SleepingHandler	<clinit>	()V	rtt
+java/lang/AbstractStringBuilder	append	(Z)Ljava/lang/AbstractStringBuilder;	rtt

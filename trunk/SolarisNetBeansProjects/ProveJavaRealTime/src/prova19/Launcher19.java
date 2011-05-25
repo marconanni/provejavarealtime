@@ -3,9 +3,10 @@
  * and open the template in the editor.
  */
 
-package prova17;
+package prova19;
 
 
+import prova17.*;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,13 +20,13 @@ import realtimeLibrary.busyWait.BusyWait;
  *
  * @author root
  */
-public class Launcher17 extends RealtimeThread {
+public class Launcher19 extends RealtimeThread {
 
 
 
     public static void main (String [] args ){
 
-        Launcher17 launcher = new Launcher17();
+        Launcher19 launcher = new Launcher19();
         launcher.setName("launcher");
         launcher.setPriority(PriorityScheduler.instance().getMaxPriority());
         launcher.start();
@@ -40,39 +41,33 @@ public class Launcher17 extends RealtimeThread {
         System.out.println("Laucher: confugurazione in corso");
 
         // creo il thread che deve occupare una cpu
-//        CpuDespotTrhead despotTrhead = new CpuDespotTrhead();
-//        despotTrhead.setName("despotThread");
-//        despotTrhead.setPriority(PriorityScheduler.instance().getNormPriority()+4);
+        CpuDespotTrhead despotTrhead = new CpuDespotTrhead();
+        despotTrhead.setName("despotThread");
+        despotTrhead.setPriority(PriorityScheduler.instance().getNormPriority()+4);
 
         
         
 
-        // creo il thread 1:un thread che al primo ciclo ha un'esecuzione di
-        // due cicli e mezzo. Implemento la politica di skip affidandoli
-        // skipPolicyHandler
-        // il thread ha periodo 100 ms ed esecuzione normale di 20
+       
 
         BadThread th1 =  new BadThread();
         RelativeTime period = new RelativeTime(100, 0);
         th1.setReleaseParameters(new PeriodicParameters(period));
         th1.setName("Thread1");
         th1.setPriority(PriorityScheduler.instance().getNormPriority()+2);
-        th1.setExcecutionTime(5);
-        th1.setBadExcecutionTime(250);
+        th1.setExcecutionTime(50);
+        th1.setBadExcecutionTime(50);
         th1.setBadIteration(1);
-        th1.setNumberOfIterations(6);
+        th1.setNumberOfIterations(7);
 
 
         SleepingHandler handler = new SleepingHandler(th1, PriorityScheduler.instance().getNormPriority()+4, "sleepingHandler",0);
-        handler.setSleepingTime(20);
+        handler.setSleepingTime(0);
 
-        
-//        th1.setDeadlineMissedHandler(handler);
-        /*
-         * creo un altro thread con un'altro sleeping handler, voglio vedere se
-         * il thread che chiama gli handler è lo stesso o se ce ne è uno associato
-         * ad ogni thread real time.
-         */
+
+        th1.setDeadlineMissedHandler(handler);
+
+        Log launcherLog = new Log();
 
         
 
@@ -93,18 +88,22 @@ public class Launcher17 extends RealtimeThread {
 //            Logger.getLogger(Launcher17.class.getName()).log(Level.SEVERE, null, ex);
 //        }
         AbsoluteTime zeroTime = Clock.getRealtimeClock().getTime();
-//        despotTrhead.start();
+        despotTrhead.start();
        
         th1.start();
        
         try {
-            
+            sleep(160);
+            RelativeTime newDeadLine= new RelativeTime(40,0);
+            PeriodicParameters newParameters = new PeriodicParameters(null, period, null, newDeadLine, null, handler);
+            th1.setReleaseParameters(newParameters);
+            launcherLog.writeGenericMessage("changedReleaseParameters");
             
             th1.join(6000);
             
-//            despotTrhead.setContinueExcecution(false);
+            despotTrhead.setContinueExcecution(false);
         } catch (InterruptedException ex) {
-            Logger.getLogger(Launcher17.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Launcher19.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
@@ -114,6 +113,8 @@ public class Launcher17 extends RealtimeThread {
         Vector <Log> logs = new Vector<Log>();
         logs.add(th1.getLog());
         logs.add(handler.getLog());
+        logs.add(launcherLog);
+       
         
         String result =Util.relativeMerge(logs, zeroTime);
         System.out.println(result);
