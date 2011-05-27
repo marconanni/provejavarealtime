@@ -52,11 +52,14 @@ public class Launcher19 extends RealtimeThread {
 
         BadThread th1 =  new BadThread();
         RelativeTime period = new RelativeTime(100, 0);
-        th1.setReleaseParameters(new PeriodicParameters(period));
+        RelativeTime deadline= new RelativeTime(70,0);
+        PeriodicParameters periodicParameters = new PeriodicParameters(period);
+
+        th1.setReleaseParameters(periodicParameters);
         th1.setName("Thread1");
-        th1.setPriority(PriorityScheduler.instance().getNormPriority()+2);
-        th1.setExcecutionTime(50);
-        th1.setBadExcecutionTime(50);
+        th1.setPriority(PriorityScheduler.instance().getNormPriority()+1);
+        th1.setExcecutionTime(40);
+        th1.setBadExcecutionTime(40);
         th1.setBadIteration(1);
         th1.setNumberOfIterations(7);
 
@@ -66,6 +69,14 @@ public class Launcher19 extends RealtimeThread {
 
 
         th1.setDeadlineMissedHandler(handler);
+
+        PeriodicThread th2 = new PeriodicThread();
+        th2.setReleaseParameters(periodicParameters);
+        th2.setName("Thread2");
+        th2.setPriority(th1.getPriority()+1);
+        th2.setExcecutionTime(40);
+        th2.setNumberOfIterations(7);
+
 
         Log launcherLog = new Log();
 
@@ -91,15 +102,19 @@ public class Launcher19 extends RealtimeThread {
         despotTrhead.start();
        
         th1.start();
+        th2.start();
        
         try {
-            sleep(160);
-            RelativeTime newDeadLine= new RelativeTime(40,0);
-            PeriodicParameters newParameters = new PeriodicParameters(null, period, null, newDeadLine, null, handler);
-            th1.setReleaseParameters(newParameters);
-            launcherLog.writeGenericMessage("changedReleaseParameters");
+            sleep(120);
+//            PriorityParameters newSP = new PriorityParameters( th2.getPriority()+1);
+//            th1.setSchedulingParameters(newSP);
+
+            th2.setPriority(th1.getPriority()-1);
+            
+            launcherLog.writeGenericMessage("changedSchedulingParameters");
             
             th1.join(6000);
+            th2.join(60000);
             
             despotTrhead.setContinueExcecution(false);
         } catch (InterruptedException ex) {
@@ -114,6 +129,7 @@ public class Launcher19 extends RealtimeThread {
         logs.add(th1.getLog());
         logs.add(handler.getLog());
         logs.add(launcherLog);
+        logs.add(th2.getLog());
        
         
         String result =Util.relativeMerge(logs, zeroTime);

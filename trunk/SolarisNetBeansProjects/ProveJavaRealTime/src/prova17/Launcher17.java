@@ -58,16 +58,16 @@ public class Launcher17 extends RealtimeThread {
         th1.setName("Thread1");
         th1.setPriority(PriorityScheduler.instance().getNormPriority()+2);
         th1.setExcecutionTime(5);
-        th1.setBadExcecutionTime(250);
+        th1.setBadExcecutionTime(150);
         th1.setBadIteration(1);
         th1.setNumberOfIterations(6);
 
 
         SleepingHandler handler = new SleepingHandler(th1, PriorityScheduler.instance().getNormPriority()+4, "sleepingHandler",0);
-        handler.setSleepingTime(20);
+        handler.setSleepingTime(170);
 
         
-//        th1.setDeadlineMissedHandler(handler);
+        th1.setDeadlineMissedHandler(handler);
         /*
          * creo un altro thread con un'altro sleeping handler, voglio vedere se
          * il thread che chiama gli handler è lo stesso o se ce ne è uno associato

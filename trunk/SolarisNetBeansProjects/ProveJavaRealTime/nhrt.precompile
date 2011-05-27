@@ -1066,3 +1066,8 @@ realtimeLibrary/schedulables/DeadlineMissedHandler	setPriority	(I)V	rtt
 prova19/Launcher19	run	()V	rtt
 prova17/SleepingHandler	<clinit>	()V	rtt
 java/lang/AbstractStringBuilder	append	(Z)Ljava/lang/AbstractStringBuilder;	rtt
+realtimeLibrary/schedulables/PeriodicThread	getCurrentIteration	()I	rtt
+realtimeLibrary/schedulables/PeriodicThread	getPendingReleases	()I	rtt
+realtimeLibrary/schedulables/PeriodicThread	setCurrentIteration	(I)V	rtt
+realtimeLibrary/schedulables/BadThread	doJob	()V	rtt
+javax/realtime/RealtimeThread	setSchedulingParameters0	(J)V	rtt
