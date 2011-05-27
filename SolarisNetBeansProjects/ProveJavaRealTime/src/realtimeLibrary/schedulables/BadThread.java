@@ -33,10 +33,13 @@ public class BadThread extends PeriodicThread {
 
     @Override
     protected void doJob() {
+       
         if(this.getBadIteration()== super.getCurrentIteration())
             BusyWait.getInstance().doJobFor(this.getBadExcecutionTime());
         else
             BusyWait.getInstance().doJobFor(super.getExcecutionTime());
+
+        
 
     }
 

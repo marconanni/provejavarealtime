@@ -36,25 +36,19 @@ public class SleepingHandler extends DeadlineMissedHandler {
     @Override
     public void handleAsyncEvent() {
         super.getLog().writeDeadlineMissed(this.getControlledThread().getName());
-//        try {
-//
-//
-//            Thread.sleep(sleepingTime);
-//        } catch (InterruptedException ex) {
-//            Logger.getLogger(SleepingHandler.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+
+
+            Thread.sleep(sleepingTime);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(SleepingHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
             
-            super.getLog().writeGenericMessage("endSleep");
-
-
-
-          
-          if(!firstTime){
               super.getLog().writeGenericMessage("SchedulePeriodic");
               super.getControlledThread().schedulePeriodic();
-          }  
+        
             
-       firstTime = false;
+       
 
     }
 
