@@ -20,6 +20,7 @@ public class Main {
     public static void main(String[] args) {
         
         RealtimeThread th1 = new RealtimeThread();
+        System.out.printl("partenza!");
        System.out.println(""+th1.getPriority());
         
         System.out.println(""+PriorityScheduler.instance().getNormPriority());
