@@ -5,12 +5,17 @@
 
 package realtimeLibrary.schedulables;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.realtime.AsyncEventHandler;
 import javax.realtime.PeriodicParameters;
+import javax.realtime.PriorityScheduler;
 import javax.realtime.RealtimeThread;
 import javax.realtime.RelativeTime;
+import javax.realtime.Scheduler;
 import realtimeLibrary.busyWait.BusyWait;
 import realtimeLibrary.logging.SchedulableLog;
+import realtimeLibrary.scheduler.EDFScheduler;
 
 /**
  *
@@ -43,9 +48,37 @@ public class PeriodicThread extends RealtimeThread {
 
     }
 
-    @Override
+    /**
+     * Corpo centrale dell'esecuzione del thread.
+     * dal momento che l'esecuzione cambia in base allo scheduler si sfrutta il
+     * polimorfismo: si dirige la chiamata ai vari metodi privati: uno diverso
+     * per ogni scheuduler supportato
+     */
+    public void run(){
+        try {
+            this.run(super.getScheduler());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+    }
+
+    /**
+     * qualora lo scheduler non sia supportato il sistema chiama questo metodo,
+     * dal momento che la classe scheduler è alla base della categoria.
+     * A questo punto occorre lanciare un'eccezione per indicare che
+     * qualcosa è andato storto
+     * @param scheduler
+     * @throws Exception
+     */
+    protected void run(Scheduler scheduler) throws Exception{
+        throw new Exception("Unsupported scheduler: "+scheduler);
+    }
+
+   
     /*
-     * corpo dell'esecuzione del thread, per ogni ciclo di esecuzione (job)
+     * corpo dell'esecuzione del thread nel caso lo scheduler sia PriorityScheduler,
+     * quello di default. Per ogni ciclo di esecuzione (job)
      * se il valore di skipNumber è pari a zero (quindi non ci sono release pendenti
      * con politica skip) scrivo l'inizio e la fine del job sul log ed eseguo il metodo
      * doJob che contiene la businness logic dell'esecuzione del thread
@@ -53,9 +86,9 @@ public class PeriodicThread extends RealtimeThread {
      * scrivo sul log che ho fatto la skip di un jobe decremento di uno il valore
      * skipNumber.
      */
-    public void run() {
+    protected void run(PriorityScheduler priorityScheduler) {
 
-        BusyWait busyWait = BusyWait.getInstance();
+       
         this.setCurrentIteration(0);
 
 
@@ -80,14 +113,75 @@ public class PeriodicThread extends RealtimeThread {
         
         super.waitForNextPeriod();
 
+    }// fine ciclo       
+
+    }
+    /**
+     *
+     * corpo dell'esecuzione del thread nel caso lo scheduler sia basato
+     * sulla politica EDF. Per ogni ciclo di esecuzione (job)
+     * se il valore di skipNumber è pari a zero (quindi non ci sono release pendenti
+     * con politica skip) scrivo sul log la creazione del job, quindi chiamo il
+     * metodo onJobRelease dello scheduler (che può essere bloccante nel caso
+     * ci siano job con una deadline più imminente).Passata questa chiamata
+     * viene registrato sul log che il job è entrato in esecuzione, viene
+     * chiamato il metodo doJob che contiene la businnessLogic del thread. Alla
+     * fine dell' esecuzione, oltre alla scrittura dell'evento sul log, viene eseguito
+     * il metodo onJobEnd dello scheduler.
+     *
+     * Se il parametro skipNumber è maggiore di zero, devo eseguire una skip,
+     * scrivo sul log che ho fatto la skip di un jobe decremento di uno il valore
+     * skipNumber.
+     *
+     * NOTA: in questa versione, se è necessario eseguire una skip del job,
+     * non vengono chiamati i due metodi dello scheduler, che porterebbero magari
+     * ad accodare inutilmente il job. si è scelto di provvedere in questa maniera
+     * per aumentare l'efficienza del sistema, a scapito di togliere un po' di controllo
+     * allo scheduler.
+     *
+     * 
+     * @param edfScheduler lo scheduler che attualmente sta gestendo il thread
+     */
+    protected void run(EDFScheduler edfScheduler){
+
+        this.setCurrentIteration(0);
+
+
+    for (int i =0; i< this.getNumberOfIterations(); i++){
+        this.setCurrentIteration(i+1);//il contatore del for parte da zero
+
+
+        if (this.getPendingReleases()==0){
+            this.getLog().writeJobCreation();
+            edfScheduler.onJobRelease(this);
+            this.getLog().writeStartJob();
+
+           this.doJob();
+
+           this.getLog().writeEndJob();
+           
+           edfScheduler.onEndJob(this);
+
+
+        }// fine if skipnumber=0
+        else{
+
+            this.getLog().writeSkippedJob();
+             this.decrementSkipNumber();
+
+           }
+
+        super.waitForNextPeriod();
+
     }// fine ciclo
-
-
-
-       
 
     }
 
+    /**
+     * questo metodo contiene la businnes logic da eseguire ad ogni iterazione
+     * (job). In questo caso si esegue una busy la cui lunghezza
+     * dipende dal parametro excecutionTime.
+     */
     protected void doJob() {
         BusyWait.getInstance().doJobFor(this.getExcecutionTime());
     }
