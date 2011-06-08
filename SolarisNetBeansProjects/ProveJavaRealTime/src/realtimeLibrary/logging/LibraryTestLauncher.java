@@ -44,7 +44,7 @@ public class LibraryTestLauncher {
             System.out.println(log.getLines());
             System.out.println("provaSchedulableLog");
             SchedulableLog schedulableLog = new SchedulableLog();
-            schedulableLog.writeCreation();
+            schedulableLog.writeJobCreation();
             schedulableLog.writeStartJob();
             schedulableLog.writeEndJob();
             System.out.println(schedulableLog);

@@ -26,7 +26,7 @@ public class SchedulableLog extends Log{
      * scrive sul log l'evento realtivo alla creazione dell'oggetto schedulabile
      * 
      */
-    public void writeCreation() {
+    public void writeJobCreation() {
        
             super.writeEvent("10");
        
