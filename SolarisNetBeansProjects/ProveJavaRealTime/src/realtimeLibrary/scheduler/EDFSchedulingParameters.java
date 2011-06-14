@@ -20,7 +20,7 @@ public class EDFSchedulingParameters extends PriorityParameters{
     private AbsoluteTime nextDeadline; // il tempo assoluto della prossima deadline
 
     public EDFSchedulingParameters() {
-        super (EDFScheduler.getReleasePriority);
+        super (EDFScheduler.getReleasePriority());
 
     }
 

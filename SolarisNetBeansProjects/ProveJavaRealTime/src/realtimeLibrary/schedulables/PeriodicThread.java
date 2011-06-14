@@ -16,6 +16,7 @@ import javax.realtime.Scheduler;
 import realtimeLibrary.busyWait.BusyWait;
 import realtimeLibrary.logging.SchedulableLog;
 import realtimeLibrary.scheduler.EDFScheduler;
+import realtimeLibrary.scheduler.EDFSchedulingParameters;
 
 /**
  *
@@ -50,17 +51,25 @@ public class PeriodicThread extends RealtimeThread {
 
     /**
      * Corpo centrale dell'esecuzione del thread.
-     * dal momento che l'esecuzione cambia in base allo scheduler si sfrutta il
-     * polimorfismo: si dirige la chiamata ai vari metodi privati: uno diverso
+     * dal momento che l'esecuzione cambia in base allo scheduler
+     * si dirige la chiamata ai vari metodi privati: uno diverso
      * per ogni scheuduler supportato
      */
+    @Override
     public void run(){
-        try {
-            this.run(super.getScheduler());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-
+        try{
+        Scheduler currentScheduler = super.getScheduler();
+        if(currentScheduler instanceof EDFScheduler)
+            this.run((EDFScheduler)currentScheduler);
+        else if (currentScheduler instanceof PriorityScheduler)
+            this.run((PriorityScheduler)currentScheduler);
+        else
+            this.run((Scheduler)currentScheduler);
         }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -146,6 +155,9 @@ public class PeriodicThread extends RealtimeThread {
 
         this.setCurrentIteration(0);
 
+        this.setSchedulingParameters(new EDFSchedulingParameters());
+           this.setPriority(EDFScheduler.getReleasePriority());
+
 
     for (int i =0; i< this.getNumberOfIterations(); i++){
         this.setCurrentIteration(i+1);//il contatore del for parte da zero
@@ -160,7 +172,7 @@ public class PeriodicThread extends RealtimeThread {
 
            this.getLog().writeEndJob();
            
-           edfScheduler.onEndJob(this);
+           edfScheduler.onJobEnd(this);
 
 
         }// fine if skipnumber=0
