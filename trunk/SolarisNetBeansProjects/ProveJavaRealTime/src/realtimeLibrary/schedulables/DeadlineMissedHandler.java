@@ -12,7 +12,7 @@ import realtimeLibrary.logging.SchedulableLog;
 
 /**
  *
- * @author root
+ * @author Marco: classe che modella il generico gestore di deadline missed
  */
 public class DeadlineMissedHandler extends AsyncEventHandler implements IPendingJobManager {
     private PeriodicThread controlledThread;

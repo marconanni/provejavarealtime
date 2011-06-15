@@ -25,6 +25,8 @@ public class CodeDescription extends Hashtable<String,String> {
         this.put("50", "rilascio risorsa");
         this.put("60", "deadline non rispettata");
         this.put("70", "job saltato per politica SKIP");
+        this.put("80", "job interrotto per politica STOP");
+
 
     }
 

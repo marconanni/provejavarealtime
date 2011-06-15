@@ -8,6 +8,7 @@ package realtimeLibrary.busyWait;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.realtime.AbsoluteTime;
+import javax.realtime.AsynchronouslyInterruptedException;
 import javax.realtime.Clock;
 
 /**
@@ -111,6 +112,32 @@ public class BusyWait {
                 k--;
             }
         }
+
+    }
+
+    public void doInterrumpibleJobFor(long milliseconds) throws AsynchronouslyInterruptedException{
+
+         // se la classe non è inizializzata  eseguo una inizializzazione rapida
+        //di un secondo, accorcia di conseguenza il tempo di esecuzione della busy wait
+        if (!this.isInitialized()){
+            System.err.println("Busy wait non ancora calibrata:eseguo una inizializzazione rapida");
+            this.initialize(100,500);
+            milliseconds = milliseconds-600;
+        }
+       // i millisecondi potrebbero essere negativi: ad esempio, se l'utente ha richiesto una wait di
+        //  mezzo secondo, ma non aveva inizializzato la classe ho già effettuto una fase di calibrazione
+        // di un secondo e quindi è giusto che non venga bloccato ulteriormente.
+        // Faccio notare come la variabile milliseconds in questo caso valga -500
+        if(milliseconds >0){
+        // così tronco la parte decimale
+            long numberOfIteration = (long) ((this.getCicliPerMillisecondo() * milliseconds));
+            int k =3;
+            for (long i =0; i<numberOfIteration; i++){
+                k++;
+                k--;
+            }
+        }
+
 
     }
 
