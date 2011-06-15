@@ -73,8 +73,25 @@ public class SchedulableLog extends Log{
          super.writeEvent("70");
      }
 
+     /**
+      * scrive sul log l'evento relativo al fato che un job
+      * che di default verrebbe immediatamente accodato per recuperare
+      * da una missed deadline diun job precedente,
+      * viene saltato perchè perchè vi usa la politica skip
+      * @param threadName il nome del thread che ha skippato il job
+      */
      public void writeSkippedJob (String threadName){
          super.writeEvent(threadName, "70");
+     }
+
+     /**
+      * scrive sul log l'evento relativo al fatto che l'esecuzione
+      * del job che ha superato la deadline è stata interrotta in
+      * accordo alla politica stop.
+      * @param threadName il nome del thread il cui job è stato interrotto.
+      */
+     public void writeInterruptedJob(String threadName){
+         super.writeEvent(threadName, "80");
      }
 
 

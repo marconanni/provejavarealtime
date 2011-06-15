@@ -177,9 +177,12 @@ realtimeLibrary/logging/ResourceLog
 prova15/R2
 prova15/ResourceThread15
 prova17/Launcher17
-prova20/Launcher20
 realtimeLibrary/scheduler/EDFScheduler
 realtimeLibrary/scheduler/EDFSchedulingParameters
 realtimeLibrary/schedulables/SleepingThread
 prova16/Launcher16
 realtimeLibrary/schedulables/SkipPolicyHandler
+prova22/Launcher22
+javax/realtime/AsynchronouslyInterruptedException
+java/lang/InterruptedException
+realtimeLibrary/schedulables/StopPolicyHandler
