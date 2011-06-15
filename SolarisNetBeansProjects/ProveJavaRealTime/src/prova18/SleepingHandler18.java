@@ -12,7 +12,8 @@ import javax.realtime.PeriodicParameters;
 import javax.realtime.RealtimeThread;
 import javax.realtime.RelativeTime;
 import realtimeLibrary.busyWait.BusyWait;
-import realtimeLibrary.schedulables.DeadlineMissedHandler;
+import realtimeLibrary.schedulables.ASAPPolicyHandler;
+import realtimeLibrary.schedulables.PeriodicThread;
 
 /**
  *
@@ -20,7 +21,7 @@ import realtimeLibrary.schedulables.DeadlineMissedHandler;
  * rischedulare il thread si addormenta per un numero settabile
  * di millisecondi
  */
-public class SleepingHandler18 extends DeadlineMissedHandler {
+public class SleepingHandler18 extends ASAPPolicyHandler {
 
     private long sleepingTime =0;
     static boolean firstTime=true;
@@ -30,7 +31,7 @@ public class SleepingHandler18 extends DeadlineMissedHandler {
         super();
     }
 
-    public SleepingHandler18(RealtimeThread controlledThread, int priority, String name, long sleepingTime) {
+    public SleepingHandler18(PeriodicThread controlledThread, int priority, String name, long sleepingTime) {
         super(controlledThread, priority, name);
         this.sleepingTime=sleepingTime;
 

@@ -57,7 +57,7 @@ public class Launcher12 extends RealtimeThread {
         th2.setNumberOfIterations(7);
         th2.setExcecutionTime(200);
          // creo l'handler relativo alla deadline del thread 2: è lui al secondo ciclo che sfora la deadline
-        DeadlineMissedHandler handler = new DeadlineMissedHandler(th2, PriorityScheduler.instance().getNormPriority()+3, "handler");
+        ASAPPolicyHandler handler = new ASAPPolicyHandler(th2, PriorityScheduler.instance().getNormPriority()+3, "handler");
 
         // imposto i parametri di release del secondo thread
         th2.setReleaseParameters(new PeriodicParameters(null, new RelativeTime(1000, 0), null  , new RelativeTime(1000, 0), null, handler));

@@ -165,6 +165,7 @@ java/util/AbstractList$Itr
 realtimeLibrary/logging/LogLine
 java/util/TreeMap$Entry
 prova18/SleepingHandler18
+realtimeLibrary/schedulables/ASAPPolicyHandler
 prova18/DummyPriorityScheduler
 java/io/IOException
 prova19/Launcher19
@@ -180,3 +181,5 @@ prova20/Launcher20
 realtimeLibrary/scheduler/EDFScheduler
 realtimeLibrary/scheduler/EDFSchedulingParameters
 realtimeLibrary/schedulables/SleepingThread
+prova16/Launcher16
+realtimeLibrary/schedulables/SkipPolicyHandler

@@ -188,3 +188,17 @@ Prova 19:
 Questa prova serve a capire cosa succede quando si cambiano i parametri di
 un processo real time durante la sua esecuzione.
 
+Prova 20:
+questa prova serve per verificare il corretto funzionamento dello scheduler
+EDF da me creato. La prova non è molto approfondita, visto che Primiano mi ha
+suggerito di non concentrarmi troppo sullo scheudueler EDf, comunque creo tre
+processi con deadline diversa e, effettivamente, va in esecuzione per primo
+quello con deadline più imminente. Per maggiori informazioni sullo scheduer EDF
+si rimanda al documento "creazione di uno scheduler EDF per java realtime"
+
+Prova 21:
+Questa è la prova fatta con Primiano per vedere come il sistema gestisce i thread
+realtime. unita all'uso del file tmp.sh si può osservare come, di fatto
+la virtual machine si limita a mappare ogni thread real time in un thread di
+sistema con la corretta priorità.
+

@@ -4,97 +4,73 @@
  */
 
 package realtimeLibrary.schedulables;
+
 import javax.realtime.AsyncEventHandler;
 import javax.realtime.PriorityParameters;
 import javax.realtime.RealtimeThread;
 import realtimeLibrary.logging.SchedulableLog;
 
-
 /**
  *
- * @author Marco Nanni: template per l'handler di deadline
- * relativo ad un thread periodico
- * nn fa niente solo scrive l'evento sul log e rischedula il thread controllato
+ * @author root
  */
-public class DeadlineMissedHandler extends AsyncEventHandler  {
+public class DeadlineMissedHandler extends AsyncEventHandler implements IPendingJobManager {
+    private PeriodicThread controlledThread;
+    private SchedulableLog log;
+    private String name;
 
-     private RealtimeThread controlledThread;
-     private String name;
-     private SchedulableLog log;
-
-    public DeadlineMissedHandler(RealtimeThread controlledThread, int priority, String name) {
-        super();
+    public DeadlineMissedHandler(PeriodicThread controlledThread, int priority, String name) {
         this.controlledThread = controlledThread;
-        this.setSchedulingParameters(new PriorityParameters(priority));
-        this.name= name;
-        this.log = new SchedulableLog();
+        this.controlledThread.setPendingJobManager(this);
+        this.setPriority(priority);
+        this.name = name;
+        this.log= new SchedulableLog();
     }
+
+
 
     public DeadlineMissedHandler() {
         super();
         this.log= new SchedulableLog();
     }
 
-
-
-    @Override
-    /**
-     * questa gestione non fa altro che scrivere l'evento sul log
-     * e rischedulare il thread che ha sforato la deadline,
-     */
-    public void handleAsyncEvent() {
-        Thread.currentThread().setName(this.getName());
-        log.writeDeadlineMissed(controlledThread.getName());
-        this.getControlledThread().schedulePeriodic();
-
-    }
-
-    public int getPriority(){
-        return ((PriorityParameters) this.getSchedulingParameters()).getPriority();
-    }
-
-    public void setPriority (int priority){
-        this.setSchedulingParameters( new PriorityParameters(priority));
+    public void doPendingJob(PeriodicThread managedThread) {
+        this.getControlledThread().doJob();
     }
 
 
 
-
-
-
-
-
-
-    public RealtimeThread getControlledThread() {
+    public PeriodicThread getControlledThread() {
         return controlledThread;
-    }
-
-    public void setControlledThread(RealtimeThread controlledThread) {
-        this.controlledThread = controlledThread;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public SchedulableLog getLog() {
         return log;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getPriority() {
+        return ((PriorityParameters) this.getSchedulingParameters()).getPriority();
+    }
+
+    public void setControlledThread(PeriodicThread controlledThread) {
+        this.controlledThread = controlledThread;
+        this.getControlledThread().setPendingJobManager(this);
+    }
+
     public void setLog(SchedulableLog log) {
         this.log = log;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
-
-
-
-
-
-
+    public void setPriority(int priority) {
+        this.setSchedulingParameters(new PriorityParameters(priority));
+    }
 
 }
