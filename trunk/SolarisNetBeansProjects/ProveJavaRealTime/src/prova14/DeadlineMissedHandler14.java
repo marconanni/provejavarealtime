@@ -7,7 +7,7 @@ package prova14;
 
 import javax.realtime.PeriodicParameters;
 import javax.realtime.RelativeTime;
-import realtimeLibrary.schedulables.DeadlineMissedHandler;
+import realtimeLibrary.schedulables.ASAPPolicyHandler;
 import realtimeLibrary.schedulables.PeriodicThread;
 
 /**
@@ -20,7 +20,7 @@ import realtimeLibrary.schedulables.PeriodicThread;
  * sfora due deadline. Solo la seconda gioco con il
  * fire count
  */
-public class DeadlineMissedHandler14  extends DeadlineMissedHandler{
+public class DeadlineMissedHandler14  extends ASAPPolicyHandler{
 
     private int missCount =0;
 

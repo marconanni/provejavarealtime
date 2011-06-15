@@ -39,32 +39,27 @@ public class Launcher17 extends RealtimeThread {
 
         System.out.println("Laucher: confugurazione in corso");
 
-        // creo il thread che deve occupare una cpu
-//        CpuDespotTrhead despotTrhead = new CpuDespotTrhead();
-//        despotTrhead.setName("despotThread");
-//        despotTrhead.setPriority(PriorityScheduler.instance().getNormPriority()+4);
+//         creo il thread che deve occupare una cpu
+        CpuDespotTrhead despotTrhead = new CpuDespotTrhead();
+        despotTrhead.setName("despotThread");
+        despotTrhead.setPriority(PriorityScheduler.instance().getNormPriority()+4);
 
         
         
-
-        // creo il thread 1:un thread che al primo ciclo ha un'esecuzione di
-        // due cicli e mezzo. Implemento la politica di skip affidandoli
-        // skipPolicyHandler
-        // il thread ha periodo 100 ms ed esecuzione normale di 20
 
         BadThread th1 =  new BadThread();
         RelativeTime period = new RelativeTime(100, 0);
         th1.setReleaseParameters(new PeriodicParameters(period));
         th1.setName("Thread1");
         th1.setPriority(PriorityScheduler.instance().getNormPriority()+2);
-        th1.setExcecutionTime(5);
-        th1.setBadExcecutionTime(150);
+        th1.setExcecutionTime(10);
+        th1.setBadExcecutionTime(250);
         th1.setBadIteration(1);
         th1.setNumberOfIterations(6);
 
 
         SleepingHandler handler = new SleepingHandler(th1, PriorityScheduler.instance().getNormPriority()+4, "sleepingHandler",0);
-        handler.setSleepingTime(170);
+        handler.setSleepingTime(0);
 
         
         th1.setDeadlineMissedHandler(handler);

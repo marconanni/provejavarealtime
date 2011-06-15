@@ -74,18 +74,18 @@ public class Launcher16 extends RealtimeThread {
         BusyWait busyWait = BusyWait.getInstance();
         busyWait.initialize(1000, 3000);
 
-        System.out.println("Laucher: Lancio tra 10 secondi!");
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Launcher16.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        System.out.println("Laucher: Lancio tra 10 secondi!");
+//        try {
+//            Thread.sleep(10000);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(Launcher16.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         AbsoluteTime zeroTime = Clock.getRealtimeClock().getTime();
         despotTrhead.start();
        
         th1.start();
         try {
-            th1.join(6000);
+            th1.join(60000);
             
             despotTrhead.setContinueExcecution(false);
         } catch (InterruptedException ex) {

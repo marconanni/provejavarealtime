@@ -1091,3 +1091,15 @@ realtimeLibrary/scheduler/EDFSchedulingParameters	setNextDeadline	(Ljavax/realti
 realtimeLibrary/schedulables/PeriodicThread	run	(Ljavax/realtime/PriorityScheduler;)V	rtt
 realtimeLibrary/schedulables/SleepingThread	<init>	()V	rtt
 realtimeLibrary/schedulables/SleepingThread	doJob	()V	rtt
+realtimeLibrary/schedulables/DeadlineMissedHandler	<init>	(LrealtimeLibrary/schedulables/PeriodicThread;ILjava/lang/String;)V	rtt
+realtimeLibrary/schedulables/DeadlineMissedHandler	getControlledThread	()LrealtimeLibrary/schedulables/PeriodicThread;	rtt
+realtimeLibrary/schedulables/SkipPolicyHandler	doPendingJob	(LrealtimeLibrary/schedulables/PeriodicThread;)V	rtt
+realtimeLibrary/schedulables/SkipPolicyHandler	getSkipCount	()I	rtt
+realtimeLibrary/schedulables/SkipPolicyHandler	decrementSkipCount	()V	rtt
+realtimeLibrary/logging/SchedulableLog	writeSkippedJob	(Ljava/lang/String;)V	rtt
+realtimeLibrary/schedulables/PeriodicThread	getPendingJobManager	()LrealtimeLibrary/schedulables/IPendingJobManager;	rtt
+realtimeLibrary/schedulables/PeriodicThread	setPendingJobManager	(LrealtimeLibrary/schedulables/IPendingJobManager;)V	rtt
+realtimeLibrary/schedulables/PeriodicThread	isPendingMode	()Z	rtt
+realtimeLibrary/schedulables/PeriodicThread	setPendingMode	(Z)V	rtt
+realtimeLibrary/schedulables/PeriodicThread	setPendingJobManager	(LrealtimeLibrary/schedulables/IPendingJobManager;)V	rtt
+realtimeLibrary/schedulables/PeriodicThread	isPendingMode	()Z	rtt

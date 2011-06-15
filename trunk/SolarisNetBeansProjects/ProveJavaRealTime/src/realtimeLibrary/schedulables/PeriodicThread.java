@@ -29,7 +29,8 @@ public class PeriodicThread extends RealtimeThread {
     private long excecutionTime; // il tempo di esecuzione effettivo di ogni job
     private SchedulableLog log; // il log del thread
     private int numberOfIterations;// il numero di cicli che il thread deve eseguire
-    private int skipNumber =0; // valore utilizzato in caso di politica SKIP di gestione dei sovraccarichi: indica quanti cicli bisogna saltare: viene settato dal deadlineMissedHandler
+    private boolean pendingMode; // valore utilizzato dalla politica di gestione dei deadline missed per indicare se eseguire un job normale o uno di recupero
+    private IPendingJobManager pendingJobManager; // il gestore dei job di recupero
     private int currentIteration; // valore che indica quale è l'iterazione corrente del thread (quale job sta eseguendo)
 
     public PeriodicThread(String name,long excecutionTime, int numberOfIterations, int priority, RelativeTime period,RelativeTime startTime, RelativeTime deadline, AsyncEventHandler deadlineHandler) {
@@ -105,7 +106,7 @@ public class PeriodicThread extends RealtimeThread {
         this.setCurrentIteration(i+1);//il contatore del for parte da zero
        
 
-        if (this.getPendingReleases()==0){
+        if (!this.isPendingMode()){
             this.getLog().writeStartJob();
            this.doJob();
 
@@ -115,8 +116,8 @@ public class PeriodicThread extends RealtimeThread {
         }// fine if skipnumber=0
         else{
            
-            this.getLog().writeSkippedJob();
-             this.decrementSkipNumber();
+            this.getPendingJobManager().doPendingJob(this);
+             
 
            }
         
@@ -129,8 +130,8 @@ public class PeriodicThread extends RealtimeThread {
      *
      * corpo dell'esecuzione del thread nel caso lo scheduler sia basato
      * sulla politica EDF. Per ogni ciclo di esecuzione (job)
-     * se il valore di skipNumber è pari a zero (quindi non ci sono release pendenti
-     * con politica skip) scrivo sul log la creazione del job, quindi chiamo il
+     * se il valore di pendingMode è pari a false (quindi non ci sono release pendenti
+     * scrivo sul log la creazione del job, quindi chiamo il
      * metodo onJobRelease dello scheduler (che può essere bloccante nel caso
      * ci siano job con una deadline più imminente).Passata questa chiamata
      * viene registrato sul log che il job è entrato in esecuzione, viene
@@ -138,11 +139,10 @@ public class PeriodicThread extends RealtimeThread {
      * fine dell' esecuzione, oltre alla scrittura dell'evento sul log, viene eseguito
      * il metodo onJobEnd dello scheduler.
      *
-     * Se il parametro skipNumber è maggiore di zero, devo eseguire una skip,
-     * scrivo sul log che ho fatto la skip di un jobe decremento di uno il valore
-     * skipNumber.
+     * Se il parametro pendingMode è true, chiamo il metodo
+     * handlePendingjob del gestore di job di recupero.
      *
-     * NOTA: in questa versione, se è necessario eseguire una skip del job,
+     * NOTA DA CORREGGERE!: in questa versione, se è necessario eseguire una skip del job,
      * non vengono chiamati i due metodi dello scheduler, che porterebbero magari
      * ad accodare inutilmente il job. si è scelto di provvedere in questa maniera
      * per aumentare l'efficienza del sistema, a scapito di togliere un po' di controllo
@@ -163,7 +163,7 @@ public class PeriodicThread extends RealtimeThread {
         this.setCurrentIteration(i+1);//il contatore del for parte da zero
 
 
-        if (this.getPendingReleases()==0){
+        if (!this.isPendingMode() ){
             this.getLog().writeJobCreation();
             edfScheduler.onJobRelease(this);
             this.getLog().writeStartJob();
@@ -178,8 +178,7 @@ public class PeriodicThread extends RealtimeThread {
         }// fine if skipnumber=0
         else{
 
-            this.getLog().writeSkippedJob();
-             this.decrementSkipNumber();
+            this.getPendingJobManager().doPendingJob(this);
 
            }
 
@@ -229,36 +228,23 @@ public class PeriodicThread extends RealtimeThread {
         this.numberOfIterations = numberOfIterations;
     }
 
-    /**
-     *
-     * @return il numero di esecuzioni che devono essere saltate
-     */
-    public int getPendingReleases() {
-        return skipNumber;
+    public IPendingJobManager getPendingJobManager() {
+        return pendingJobManager;
     }
 
-    /**
-     *
-     * @param skipNumber il numero di esecuzioni che devono essere saltate
-     */
-    public void setSkipNumber(int skipNumber) {
-        this.skipNumber = skipNumber;
+    public void setPendingJobManager(IPendingJobManager pendingJobManager) {
+        this.pendingJobManager = pendingJobManager;
     }
 
-    /**
-     * incrementa  il numero di esecuzioni che devono essere saltate,
-     * questo metodo viene usato soprattutto da un handler di deadlinemissed
-     * con politica skip
-     */
-    public void incrementSkipNumber() {
-        this.skipNumber++;
+    public boolean isPendingMode() {
+        return pendingMode;
     }
-    /**
-     * decrementa  il numero di esecuzioni che devono essere saltate,
-     */
-    public void decrementSkipNumber() {
-        this.skipNumber--;
+
+    public void setPendingMode(boolean pendingMode) {
+        this.pendingMode = pendingMode;
     }
+
+
 
     /**
      *

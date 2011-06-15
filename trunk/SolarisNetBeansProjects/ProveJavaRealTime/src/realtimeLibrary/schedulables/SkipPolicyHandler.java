@@ -13,8 +13,9 @@ package realtimeLibrary.schedulables;
  * (che deve essere un PeriodicThread) sfora la deadline questo aumenta il
  * suo skipNumber in modo da realizzare la politica di skip
  */
-public class SkipPolicyHandler extends DeadlineMissedHandler {
+public class SkipPolicyHandler extends DeadlineMissedHandler  {
 
+    private int skipCount=0;
     public SkipPolicyHandler() {
     }
 
@@ -41,10 +42,42 @@ public class SkipPolicyHandler extends DeadlineMissedHandler {
         Thread.currentThread().setName(this.getName());
 
         super.getLog().writeDeadlineMissed(super.getControlledThread().getName());
-        ((PeriodicThread)super.getControlledThread()).incrementSkipNumber();
+        this.skipCount++;
+        super.getControlledThread().setPendingMode(true);
         this.getControlledThread().schedulePeriodic();
 
     }
+
+    @Override
+    public void doPendingJob(PeriodicThread managedThread) {
+       this.decrementSkipCount();
+       this.getLog().writeSkippedJob(this.getControlledThread().getName());
+       if(this.getSkipCount()==0)
+           this.getControlledThread().setPendingMode(false);
+
+    }
+
+
+
+    
+
+    public int getSkipCount() {
+        return skipCount;
+    }
+
+    public void setSkipCount(int skipCount) {
+        this.skipCount = skipCount;
+    }
+
+    public void incrementSkipCount(){
+        this.skipCount++;
+    }
+
+    public void decrementSkipCount(){
+        this.skipCount--;
+    }
+
+
 
 
 
