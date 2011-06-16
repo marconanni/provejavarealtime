@@ -202,3 +202,15 @@ realtime. unita all'uso del file tmp.sh si può osservare come, di fatto
 la virtual machine si limita a mappare ogni thread real time in un thread di
 sistema con la corretta priorità.
 
+Prova 22:
+Questa prova dimostra la validità delle classi che servono per modellare la strate
+gia STOP di gestione della violazione della deadline. In pratica viene creato
+un InterrupiblePeriodicThread a cui viene associato uno STOPPolicyHandler
+Si può notare come l'esecuzione dei job venga effettivamente interrrotta non
+appena questi violino la loro deadline.
+
+Prova 23:
+Provo l'altro metodo per fare funzionare il trasferimento asincrono di controllo:
+creo un oggetto Interrumpible, il cui metodo run fa una busyWait lunga un certo
+tempo e chiamo il metodo doInterrumpible di una AsincroouslyInterruptedEsception.
+Prima del termine della busyWait chiamo il metodo fire della AIE.
