@@ -186,3 +186,7 @@ prova22/Launcher22
 javax/realtime/AsynchronouslyInterruptedException
 java/lang/InterruptedException
 realtimeLibrary/schedulables/StopPolicyHandler
+prova23/Launcher23
+prova23/OggettoInterrompibile
+prova23/AIEThread
+realtimeLibrary/schedulables/InterrumpiblePeriodicThread

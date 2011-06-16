@@ -27,6 +27,7 @@ public class InterrumpiblePeriodicThread extends PeriodicThread{
     protected void doJob() {
         try {
            BusyWait.getInstance().doInterrumpibleJobFor(this.getExcecutionTime());
+          
         } catch (AsynchronouslyInterruptedException ex) {
             ex.clear();
             this. getLog().writeInterruptedJob(this.getName());

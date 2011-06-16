@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 import javax.realtime.AbsoluteTime;
 import javax.realtime.AsynchronouslyInterruptedException;
 import javax.realtime.Clock;
+import javax.realtime.RealtimeThread;
+import realtimeLibrary.schedulables.PeriodicThread;
 
 /**
  *
@@ -117,6 +119,8 @@ public class BusyWait {
 
     public void doInterrumpibleJobFor(long milliseconds) throws AsynchronouslyInterruptedException{
 
+        
+
          // se la classe non è inizializzata  eseguo una inizializzazione rapida
         //di un secondo, accorcia di conseguenza il tempo di esecuzione della busy wait
         if (!this.isInitialized()){
@@ -136,6 +140,9 @@ public class BusyWait {
                 k++;
                 k--;
             }
+
+            
+
         }
 
 
