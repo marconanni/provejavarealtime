@@ -20,7 +20,7 @@ import javax.realtime.RealtimeThread;
  * speriore a quella degli altri thread realtime,
  * ma inferiore a quella del thread chefa da inizializzatore/metascheduler
  */
-public class CpuDespotTrhread  extends RealtimeThread{
+public class CpuDespotThread  extends RealtimeThread{
 
     private boolean continueExcecution = true;
 
