@@ -47,7 +47,7 @@ public class Launcher21 extends RealtimeThread {
 //        Scheduler.setDefaultScheduler(EDFScheduler.instance());
 
         // creo il thread che deve occupare una cpu
-        CpuDespotTrhead despotTrhead = new CpuDespotTrhead();
+        CpuDespotThread despotTrhead = new CpuDespotThread();
         despotTrhead.setName("despotThread");
         despotTrhead.setPriority(PriorityScheduler.instance().getNormPriority()+7);
 

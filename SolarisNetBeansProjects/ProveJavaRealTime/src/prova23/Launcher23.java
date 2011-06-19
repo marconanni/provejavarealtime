@@ -41,7 +41,7 @@ public class Launcher23 extends RealtimeThread {
         System.out.println("Laucher: confugurazione in corso");
 
         // creo il thread che deve occupare una cpu
-        CpuDespotTrhead despotTrhead = new CpuDespotTrhead();
+        CpuDespotThread despotTrhead = new CpuDespotThread();
         despotTrhead.setName("despotThread");
         despotTrhead.setPriority(PriorityScheduler.instance().getNormPriority()+4);
 
