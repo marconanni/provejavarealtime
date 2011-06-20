@@ -158,9 +158,9 @@ discesa( quando libera man mano le risorse).
 
 
 Prova 16:
-Proviamo la politica di skip: un badThread fa un'esecuzione che termina solo
-nel terzo periodo, ad esso è associato un o SkipPolicyHandler.
-Ok, funziona bene.
+Serve pre provare le varie politiche di gestione dei deadline missed:
+c'è un badThread a cui viene associato un handler, si può giocare quidni
+con il tipo di handler, i tempi di esecuzione, le deadline, i periodi ecc.
 
 Prova 17:
 
@@ -203,8 +203,8 @@ la virtual machine si limita a mappare ogni thread real time in un thread di
 sistema con la corretta priorità.
 
 Prova 22:
-Questa prova dimostra la validità delle classi che servono per modellare la strate
-gia STOP di gestione della violazione della deadline. In pratica viene creato
+Questa prova dimostra la validità delle classi che servono per modellare
+la strategia STOP di gestione della violazione della deadline. In pratica viene creato
 un InterrupiblePeriodicThread a cui viene associato uno STOPPolicyHandler
 Si può notare come l'esecuzione dei job venga effettivamente interrrotta non
 appena questi violino la loro deadline.

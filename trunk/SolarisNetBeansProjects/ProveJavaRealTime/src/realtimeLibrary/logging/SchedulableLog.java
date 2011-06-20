@@ -94,5 +94,42 @@ public class SchedulableLog extends Log{
          super.writeEvent(threadName, "80");
      }
 
+     /**
+      * scrive sul log l'evento relativo al fatto che si sta
+      * iniziando un job di recupero
+      * @param threadName il nome del thread che sta eseguendo il
+      * job di recupero
+      */
+     public void writeStartPendingJob(String threadName){
+         super.writeEvent(threadName, "90");
+
+     }
+     /**
+      * scrive sul log l'evento relativo al fatto che si sta
+      * iniziando un job di recupero
+      */
+     public void writeStartPendingJob(){
+         super.writeEvent( "90");
+
+     }
+
+     /**
+      * scrive sul log l'evento relativo al fatto che si sta
+      * finendo l'esecuzione di un job di recupero
+      * @param threadName il nome del thread che sta eseguendo il
+      * job di recupero
+      */
+     public void  writeEndPendingJob (String threadName){
+         super.writeEvent(threadName, "100");
+     }
+
+     /**
+      * scrive sul log l'evento relativo al fatto che si sta
+      * finendo l'esecuzione di un job di recupero
+      */
+     public void  writeEndPendingJob (){
+         super.writeEvent( "100");
+     }
+
 
 }

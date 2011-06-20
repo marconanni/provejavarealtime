@@ -130,7 +130,6 @@ javax/realtime/PriorityParameters
 javax/realtime/SchedulingParameters
 javax/realtime/PeriodicParameters
 prova18/Launcher18
-realtimeLibrary/schedulables/CpuDespotTrhead
 prova18/EmptyScheduler
 realtimeLibrary/schedulables/BadThread
 realtimeLibrary/schedulables/PeriodicThread
@@ -179,7 +178,6 @@ prova15/ResourceThread15
 prova17/Launcher17
 realtimeLibrary/scheduler/EDFScheduler
 realtimeLibrary/scheduler/EDFSchedulingParameters
-realtimeLibrary/schedulables/SleepingThread
 prova16/Launcher16
 realtimeLibrary/schedulables/SkipPolicyHandler
 prova22/Launcher22
@@ -190,3 +188,4 @@ prova23/Launcher23
 prova23/OggettoInterrompibile
 prova23/AIEThread
 realtimeLibrary/schedulables/InterrumpiblePeriodicThread
+realtimeLibrary/schedulables/CpuDespotThread
