@@ -56,11 +56,11 @@ public class Launcher16 extends RealtimeThread {
         th1.setName("Thread1");
         th1.setPriority(PriorityScheduler.instance().getNormPriority()+1);
         th1.setExcecutionTime(20);
-        th1.setBadExcecutionTime(250);
+        th1.setBadExcecutionTime(190);
         th1.setBadIteration(1);
         th1.setNumberOfIterations(7);
 
-        SkipPolicyHandler handler = new SkipPolicyHandler(th1, PriorityScheduler.instance().getNormPriority()+2, "SkipHandler");
+        ASAPPolicyHandler handler = new ASAPPolicyHandler(th1, PriorityScheduler.instance().getNormPriority()+2, "SkipHandler");
         th1.setDeadlineMissedHandler(handler);
 
 

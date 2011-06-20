@@ -1142,3 +1142,13 @@ realtimeLibrary/schedulables/InterrumpiblePeriodicThread	<init>	()V	rtt
 realtimeLibrary/schedulables/InterrumpiblePeriodicThread	doJob	()V	rtt
 realtimeLibrary/schedulables/StopPolicyHandler	<init>	(LrealtimeLibrary/schedulables/InterrumpiblePeriodicThread;ILjava/lang/String;)V	rtt
 realtimeLibrary/schedulables/StopPolicyHandler	getControlledThread	()LrealtimeLibrary/schedulables/InterrumpiblePeriodicThread;	rtt
+realtimeLibrary/logging/SchedulableLog	writeStartPendingJob	()V	rtt
+realtimeLibrary/logging/SchedulableLog	writeEndPendingJob	()V	rtt
+realtimeLibrary/schedulables/CpuDespotThread	<init>	()V	rtt
+realtimeLibrary/schedulables/CpuDespotThread	run	()V	rtt
+realtimeLibrary/schedulables/CpuDespotThread	setContinueExcecution	(Z)V	rtt
+realtimeLibrary/schedulables/CpuDespotThread	isContinueExcecution	()Z	rtt
+realtimeLibrary/schedulables/ASAPPolicyHandler	getPendingReleases	()I	rtt
+realtimeLibrary/schedulables/ASAPPolicyHandler	doPendingJob	(LrealtimeLibrary/schedulables/PeriodicThread;)V	rtt
+realtimeLibrary/schedulables/ASAPPolicyHandler	incrementPendingReleases	()V	rtt
+realtimeLibrary/schedulables/ASAPPolicyHandler	decrementPendingReleases	()V	rtt

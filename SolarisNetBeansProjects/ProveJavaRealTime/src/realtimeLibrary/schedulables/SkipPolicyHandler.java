@@ -42,7 +42,7 @@ public class SkipPolicyHandler extends DeadlineMissedHandler  {
         Thread.currentThread().setName(this.getName());
 
         super.getLog().writeDeadlineMissed(super.getControlledThread().getName());
-        this.skipCount++;
+        this.incrementSkipCount();
         super.getControlledThread().setPendingMode(true);
         this.getControlledThread().schedulePeriodic();
 
@@ -50,8 +50,9 @@ public class SkipPolicyHandler extends DeadlineMissedHandler  {
 
     @Override
     public void doPendingJob(PeriodicThread managedThread) {
-       this.decrementSkipCount();
+       
        this.getLog().writeSkippedJob(this.getControlledThread().getName());
+       this.decrementSkipCount();
        if(this.getSkipCount()==0)
            this.getControlledThread().setPendingMode(false);
 
