@@ -23,6 +23,12 @@ public class ThresholdPolicyHandler extends DeadlineMissedHandler{
         this.deadlineCount =0;
     }
 
+    public ThresholdPolicyHandler() {
+        super();
+    }
+
+
+
     /**
      * 
      * @return un valore che indica dopo quante violazioni consecutive
