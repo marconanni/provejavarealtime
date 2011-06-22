@@ -189,3 +189,7 @@ prova23/OggettoInterrompibile
 prova23/AIEThread
 realtimeLibrary/schedulables/InterrumpiblePeriodicThread
 realtimeLibrary/schedulables/CpuDespotThread
+prova24/Launcher24
+realtimeLibrary/schedulables/InterrumpibleBadThread
+realtimeLibrary/schedulables/ASAPStopThresholdPolicyHandler
+realtimeLibrary/schedulables/ThresholdPolicyHandler
