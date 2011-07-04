@@ -34,7 +34,7 @@ public class DeadlineMissedHandler extends AsyncEventHandler implements IPending
         this.log= new SchedulableLog();
     }
 
-    public void doPendingJob(PeriodicThread managedThread) {
+    public synchronized void doPendingJob(PeriodicThread managedThread) {
         this.getControlledThread().doJob();
     }
 

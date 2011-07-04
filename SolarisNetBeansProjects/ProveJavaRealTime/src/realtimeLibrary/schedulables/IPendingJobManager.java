@@ -13,6 +13,6 @@ import javax.realtime.RealtimeThread;
  */
 public interface IPendingJobManager {
 
-    public void doPendingJob(PeriodicThread managedThread);
+    public  void doPendingJob(PeriodicThread managedThread);
 
 }

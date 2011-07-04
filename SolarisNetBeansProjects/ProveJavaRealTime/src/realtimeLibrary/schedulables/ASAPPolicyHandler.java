@@ -39,7 +39,7 @@ public class ASAPPolicyHandler extends DeadlineMissedHandler   {
      * questa gestione non fa altro che scrivere l'evento sul log
      * e rischedulare il thread che ha sforato la deadline,
      */
-    public void handleAsyncEvent() {
+    public synchronized void handleAsyncEvent() {
         Thread.currentThread().setName(this.getName());
         this.getLog().writeDeadlineMissed(this.getControlledThread().getName());
         this.getControlledThread().setPendingMode(true);
@@ -49,7 +49,7 @@ public class ASAPPolicyHandler extends DeadlineMissedHandler   {
     }
 
     @Override
-    public void doPendingJob(PeriodicThread managedThread) {
+    public synchronized void doPendingJob(PeriodicThread managedThread) {
        // non c'è bisogno di indicare il nome del thread perchè il thread che sta eseguendo questo codice è il thread controllato
         this.getLog().writeStartPendingJob();
         this.getControlledThread().doJob();

@@ -1174,3 +1174,10 @@ realtimeLibrary/schedulables/ASAPStopThresholdPolicyHandler	decrementSkipCount	(
 realtimeLibrary/schedulables/ASAPStopThresholdPolicyHandler	setSkipCount	(I)V	rtt
 realtimeLibrary/schedulables/ASAPStopThresholdPolicyHandler	getAsapPolicyHandler	()LrealtimeLibrary/schedulables/ASAPPolicyHandler;	rtt
 realtimeLibrary/schedulables/ASAPStopThresholdPolicyHandler	getStopPolicyHandler	()LrealtimeLibrary/schedulables/StopPolicyHandler;	rtt
+realtimeLibrary/schedulables/SkipStopThresholdPolicyHandler	<init>	(LrealtimeLibrary/schedulables/InterrumpiblePeriodicThread;ILjava/lang/String;I)V	rtt
+realtimeLibrary/schedulables/SkipStopThresholdPolicyHandler	handleAsyncEvent	()V	rtt
+realtimeLibrary/schedulables/SkipStopThresholdPolicyHandler	getControlledThread	()LrealtimeLibrary/schedulables/InterrumpiblePeriodicThread;	rtt
+realtimeLibrary/schedulables/SkipStopThresholdPolicyHandler	incrementSkipCount	()V	rtt
+realtimeLibrary/schedulables/SkipStopThresholdPolicyHandler	doPendingJob	(LrealtimeLibrary/schedulables/PeriodicThread;)V	rtt
+realtimeLibrary/schedulables/SkipStopThresholdPolicyHandler	getSkipCount	()I	rtt
+realtimeLibrary/schedulables/SkipStopThresholdPolicyHandler	decrementSkipCount	()V	rtt

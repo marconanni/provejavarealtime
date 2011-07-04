@@ -38,7 +38,7 @@ public class SkipPolicyHandler extends DeadlineMissedHandler  {
      * aumenta il parametro skipNumber del thread  controllato
      * e lo rischedula, in modo da avere un comportamente di tipo skip
       */
-    public void handleAsyncEvent() {
+    public synchronized void handleAsyncEvent() {
         Thread.currentThread().setName(this.getName());
 
         super.getLog().writeDeadlineMissed(super.getControlledThread().getName());
@@ -49,7 +49,7 @@ public class SkipPolicyHandler extends DeadlineMissedHandler  {
     }
 
     @Override
-    public void doPendingJob(PeriodicThread managedThread) {
+    public synchronized void doPendingJob(PeriodicThread managedThread) {
        
        this.getLog().writeSkippedJob(this.getControlledThread().getName());
        this.decrementSkipCount();

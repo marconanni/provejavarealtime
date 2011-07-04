@@ -193,3 +193,4 @@ prova24/Launcher24
 realtimeLibrary/schedulables/InterrumpibleBadThread
 realtimeLibrary/schedulables/ASAPStopThresholdPolicyHandler
 realtimeLibrary/schedulables/ThresholdPolicyHandler
+realtimeLibrary/schedulables/SkipStopThresholdPolicyHandler

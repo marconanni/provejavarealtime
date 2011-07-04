@@ -61,7 +61,7 @@ public class Launcher24 extends RealtimeThread {
         th1.setBadIteration(1);
         th1.setNumberOfIterations(7);
 
-        ASAPStopThresholdPolicyHandler handler = new ASAPStopThresholdPolicyHandler(th1, PriorityScheduler.instance().getNormPriority()+2, "Handler",2);
+        SkipStopThresholdPolicyHandler handler = new SkipStopThresholdPolicyHandler(th1, PriorityScheduler.instance().getNormPriority()+2, "Handler",3);
         th1.setDeadlineMissedHandler(handler);
 
 
