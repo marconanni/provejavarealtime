@@ -34,7 +34,7 @@ public class ASAPStopThresholdPolicyHandler extends ThresholdPolicyHandler{
     }
 
      @Override
-    public void handleAsyncEvent() {
+    public synchronized void  handleAsyncEvent() {
         this.getLog().writeDeadlineMissed(this.getControlledThread().getName());
          this.getControlledThread().setPendingMode(true);
          this.incrementDeadlineCount();
@@ -53,7 +53,7 @@ public class ASAPStopThresholdPolicyHandler extends ThresholdPolicyHandler{
 
 
     @Override
-    public void doPendingJob(PeriodicThread managedThread) {
+    public synchronized void doPendingJob(PeriodicThread managedThread) {
        if (this.getSkipCount()==0){
            this.getLog().writeStartPendingJob();
            this.asapPolicyHandler.doPendingJob(this.getControlledThread());
@@ -84,6 +84,10 @@ public class ASAPStopThresholdPolicyHandler extends ThresholdPolicyHandler{
   
     public void setControlledThread(InterrumpiblePeriodicThread controlledThread) {
         super.setControlledThread(controlledThread);
+        this.getAsapPolicyHandler().setControlledThread(controlledThread);
+        this.getStopPolicyHandler().setControlledThread(controlledThread);
+        controlledThread.setPendingJobManager(this);
+
     }
 
 
